@@ -1,9 +1,32 @@
 doctype html
 html
-  head
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title= title
-    link(rel='stylesheet', href='/bootstrap/css/theme.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title= title
+		link(rel='stylesheet', href='/bootstrap/css/theme.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		nav(role="navigation").navbar.navbar-default.navbar-fixed-top
+			.navbar-header
+				button(type="button", data-toggle="collapse", data-target=".navbar-ex1-collapse").navbar-toggle.collapsed
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a(href="/" ).navbar-brand Nextread
+			.collapse.navbar-collapse.navbar-ex1-collapse
+				ul.nav.navbar-nav.navbar-right
+					li: a(href="/login") Login
+					li: a(href="/signup") Signup
+		.container
+			block content
+			footer
+				.row
+					.col-xs-12
+						.pull-right Made by: 
+							a(href="http://sebastienrohan.com") Sébastien Rohan
+
+	script(src='/javascripts/jquery.min.js')
+	script(src='/bootstrap/js/bootstrap.min.js')

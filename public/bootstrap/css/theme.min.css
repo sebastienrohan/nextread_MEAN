@@ -723,7 +723,7 @@ select[multiple].input-lg,textarea.input-lg{height:auto}
 .help-block{display:block;margin-top:5px;margin-bottom:10px;color:#959595}
 @media (min-width:768px){.form-inline .form-control-static,.form-inline .form-group{display:inline-block}
 .form-inline .control-label,.form-inline .form-group{margin-bottom:0;vertical-align:middle}
-.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}
+.form-inline .form-control{display:inline-block;width:80%;vertical-align:middle}
 .form-inline .input-group{display:inline-table;vertical-align:middle}
 .form-inline .input-group .form-control,.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn{width:auto}
 .form-inline .input-group>.form-control{width:100%}
@@ -989,7 +989,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-text{margin-top:15px;margin-bottom:15px}
 @media (min-width:768px){.navbar-text{float:left;margin-left:15px;margin-right:15px}
 .navbar-left{float:left!important}
-.navbar-right{float:right!important;margin-right:-15px}
+.navbar-right{float:right!important;}
 .navbar-right~.navbar-right{margin-right:0}
 }
 .navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}

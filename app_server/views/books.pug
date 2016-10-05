@@ -1,0 +1,14 @@
+extends list
+
+block books
+	each book in books
+		.panel.panel-default.accordion-toggle
+			.panel-heading
+				h4.panel-title= book.title + " - " + book.author
+			.panel-collapse
+				.panel-body
+					.row
+						.col-lg-8
+							| #{book.summary}
+						.col-lg-4
+							img(src= book.cover).img-responsive

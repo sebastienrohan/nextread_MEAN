@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	.row
+		.col-lg-8.col-lg-offset-2
+			h1= pageHeader.title
+			.strapline #{pageHeader.strapline}
+			.row
+				.col-lg-8
+					form(action="", method="POST", role="form")
+						.form-inline
+							input.input-lg.form-control(type="text", placeholder="Book title")
+							button.btn.btn-lg.btn-primary(type="submit") +
+	block list
