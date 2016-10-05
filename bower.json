@@ -1,0 +1,23 @@
+{
+  "name": "nextread",
+  "description": "Book list management app",
+  "main": "",
+  "authors": [
+    "Sébastien Rohan <sebastien.rohan@openmailbox.org>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "sebastienrohan.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
+}
