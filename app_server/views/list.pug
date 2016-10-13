@@ -1,7 +1,9 @@
-extends index
+extends form
 
 block list
 	.row
-		.col-lg-8.col-lg-offset-2
+		.col-lg-8.col-lg-offset-2(ng-controller="bookListCtrl")
+			input.input-lg.form-control#filter(type="text", name="filter", ng-model="textFilter", placeholder="Filter results")
+			.error {{ message }}
 			#booklist.panel-group
 					block books

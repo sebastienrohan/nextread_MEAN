@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var ctrlBooks = require('../controllers/books');
+var ctrlOthers = require('../controllers/others')
 
 /* GET home page. */
-router.get('/', ctrlBooks.list);
+router.get('/', ctrlOthers.nextreadApp);
 
 module.exports = router;

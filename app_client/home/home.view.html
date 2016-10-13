@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <h1>{{ vm.pageHeader.title }}</h1>
+    <div class="strapline">{{ vm.pageHeader.strapline }}</div>
+    <div class="row">
+      <div class="col-lg-8">
+        <form action="/api/books" method="POST" role="form" id="addBook">
+          <div class="form-inline">
+            <input id="title" type="text" placeholder="Book title" name="title" class="input-lg form-control"/>
+            <button type="submit" class="btn btn-lg btn-primary">+</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <input id="filter" type="text" name="filter" ng-model="textFilter" placeholder="Filter results" class="input-lg form-control"/>
+    <div class="error">{{ vm.message }}</div>
+    <div id="booklist" class="panel-group">
+      <div ng-repeat="book in vm.data.books | filter: textFilter" class="panel panel-default accordion-toggle">
+        <div class="panel-heading">
+          <h4 class="panel-title">{{ book.title + " - " + book.author }}</h4>
+        </div>
+        <div class="panel-collapse">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-8">{{ book.summary }}</div>
+              <div class="col-lg-4"><img src="/images/cover.jpg" class="img-responsive"/></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	.row
+		.col-lg-8.col-lg-offset-2
+			h1= pageHeader.title
+			.strapline #{pageHeader.strapline}
+			.row
+				.col-lg-8
+					form(action="/api/books", method="POST", role="form")#addBook
+						.form-inline
+							input#title.input-lg.form-control(type="text", placeholder="Book title", name="title")
+							button.btn.btn-lg.btn-primary(type="submit") +
+	block list
