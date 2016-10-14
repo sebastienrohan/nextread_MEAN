@@ -33,7 +33,7 @@ module.exports.booksCreate = function (req, res) {
 			console.log(err);
 			sendJSONresponse(res, 400, err);
 		} else {
-			res.redirect('/');
+			res.redirect('/'); // A changer pour éviter un rafraichissement de toute la page : utiliser un service nextreadData
 		}
 	});
 };

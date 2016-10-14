@@ -1,9 +1,11 @@
-<div class="row">
-  <div class="col-lg-8 col-lg-offset-2">
-    <h1>{{ vm.pageHeader.title }}</h1>
-    <div class="strapline">{{ vm.pageHeader.strapline }}</div>
+<navigation></navigation>
+
+<div class="container">
+  <page-header content="vm.pageHeader"></page-header>
+  
+  <!-- New book input -->
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-lg-8 col-lg-offset-2">
         <form action="/api/books" method="POST" role="form" id="addBook">
           <div class="form-inline">
             <input id="title" type="text" placeholder="Book title" name="title" class="input-lg form-control"/>
@@ -12,13 +14,14 @@
         </form>
       </div>
     </div>
-  </div>
-</div>
 
+<!-- Filter -->
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2">
     <input id="filter" type="text" name="filter" ng-model="textFilter" placeholder="Filter results" class="input-lg form-control"/>
     <div class="error">{{ vm.message }}</div>
+
+    <!-- Book List -->
     <div id="booklist" class="panel-group">
       <div ng-repeat="book in vm.data.books | filter: textFilter" class="panel panel-default accordion-toggle">
         <div class="panel-heading">
@@ -35,4 +38,7 @@
       </div>
     </div>
   </div>
+</div>
+
+<footer-generic></footer-generic>
 </div>

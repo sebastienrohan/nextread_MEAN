@@ -14,6 +14,7 @@ function homeCtrl($http) {
 	};
 	vm.message = "Loading your book list";
 
+	// A remplacer par une interrogation du service nextreadData qui contiendra ce code (à peu près)
 	$http.get('/api/books').then(
 		function success(response) {
 			vm.message = response.data.length > 0 ? "" : "No books found";
