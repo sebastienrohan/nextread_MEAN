@@ -6,9 +6,9 @@
   <!-- New book input -->
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
-        <form action="/api/books" method="POST" role="form" id="addBook">
+        <form role="form" id="addBook" ng-submit="vm.postData()">
           <div class="form-inline">
-            <input id="title" type="text" placeholder="Book title" name="title" class="input-lg form-control"/>
+            <input id="title" type="text" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control"/>
             <button type="submit" class="btn btn-lg btn-primary">+</button>
           </div>
         </form>

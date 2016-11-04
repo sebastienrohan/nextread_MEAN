@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var ctrlBooks = require('../controllers/books');
 
-/* GET home page. */
 router.get('/books', ctrlBooks.booksList);
 router.post('/books', ctrlBooks.booksCreate);
 router.get('/books/:bookid', ctrlBooks.booksReadOne);
