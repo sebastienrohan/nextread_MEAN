@@ -7,10 +7,9 @@ function nextreadData($http) {
 		return $http.get('/api/books');
 	};
 	var postBook = function(postedTitle) {
-console.log('http.posted postedTitle: ' + postedTitle);
 		return $http.post(
    			'/api/books',
-   			{title: postedTitle}
+   			{ title: postedTitle }
    		);
 	};
 	return {

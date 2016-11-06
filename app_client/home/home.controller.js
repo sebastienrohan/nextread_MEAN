@@ -11,13 +11,16 @@ function homeCtrl(nextreadData) {
 		strapline: 'Your books-to-read list'
 	};
 
+	vm.booklist = null;
+
 	vm.getData = function() {
-		console.log("getData called");
 		vm.message = "Loading your book list";
 		nextreadData.getBooks().then(
 			function success(response) {
 				vm.message = response.data.length > 0 ? "" : "No books found";
 				vm.data = { books: response.data };
+				vm.booklist = response.data;
+vm.message = vm.booklist;
 			},
 			function error(e) {
 				vm.message = "Sorry, something went wrong";
@@ -26,13 +29,22 @@ function homeCtrl(nextreadData) {
 	};
 	vm.getData();
 
+	vm.onSubmit = function() {
+		if (!vm.title) {
+			vm.message = "Please enter a book title";
+		} else {
+			vm.postData();
+		}
+	};
+
 	vm.postData = function() {
-console.log("postData called: " + vm.title);
 		vm.message = "Posting your book title: " + vm.title;
 		nextreadData.postBook(vm.title).then(
-			function success() {
-console.log("postData success: " + vm.title);
-				vm.getData();
+			function success(addedBook) {
+				// vm.getData();
+vm.message = addedBook.data;
+				vm.booklist.push(addedBook.data);
+				vm.data = { books: vm.booklist };
 			},
 			function error(e) {
 				vm.message = "Sorry, something went wrong: ";
