@@ -7,37 +7,67 @@ var sendJSONresponse = function (res, status, content) {
 };
 
 module.exports.booksList = function (req, res) {
-	Book
-		.find()
-		.exec(function(err, books) {
-			if (!books) {
-          		sendJSONresponse(res, 404, {
-            		"message": req.params.bookid  + " not found"
-          		});
-          		return;
-        	} else if (err) {
-          		console.log(err);
-          		sendJSONresponse(res, 404, err);
-          		return;
-        	}
-        	console.log(books);
-        	sendJSONresponse(res, 200, books);
-      	});
+  getAccount(req, res, function (req, res) {
+    Book
+    .find()
+    .exec(function(err, books) {
+      if (!books) {
+        sendJSONresponse(res, 404, {
+          "message": "Books not found"
+        });
+        return;
+      } else if (err) {
+          console.log(err);
+          sendJSONresponse(res, 404, err);
+          return;
+      }
+      console.log(books);
+      sendJSONresponse(res, 200, books);
+    });
+  });
 };
 
 module.exports.booksCreate = function (req, res) {
-	Book.create({
-		title: req.body.title
-	}, function (err, book) {
-		if (err) {
-			console.log(err);
-			sendJSONresponse(res, 400, err);
-		} else {
-			console.log(book);
-      sendJSONresponse(res, 201, book);
-		}
-	});
+  getAccount(req, res, function (req, res) {
+    Book.create({
+      title: req.body.title
+    }, function (err, book) {
+      if (err) {
+        console.log(err);
+        sendJSONresponse(res, 400, err);
+      } else {
+        console.log(book);
+        sendJSONresponse(res, 201, book);
+      }
+    });
+  });
 };
+
+// validate that user is logged in
+var User = mongoose.model('User');
+var getAccount = function (req, res, callback) {
+  if (req.payload.email) {
+    User
+      .findOne({ email: req.payload.email })
+      .exec(function (err, user) {
+        if (!user) {
+          sendJSONresponse(res, 404, {
+            'message': 'User not found'
+          });
+        } else if (err) {
+          console.log(err);
+          sendJSONresponse(res, 404, err);
+          return;
+        }
+        callback(req, res);
+      });
+  } else {
+    sendJSONresponse(res, 404, {
+      'message': 'User not found'
+    });
+  }
+};
+
 
 module.exports.booksReadOne = function(req, res) {
   console.log('Finding book details', req.params);

@@ -2,9 +2,15 @@ angular
 	.module('nextreadApp')
 	.service('nextreadData', nextreadData);
 
-function nextreadData($http) {
+nextreadData.$inject = ['$http', 'authentication'];
+
+function nextreadData($http, authentication) {
 	var getBooks = function() {
-		return $http.get('/api/books');
+		return $http.get('/api/books', {
+			headers: {
+				Authorization: 'Bearer ' + authentication.getToken()
+			}
+		});
 	};
 	var postBook = function(postedTitle) {
 		return $http.post(

@@ -20,7 +20,6 @@ function homeCtrl(nextreadData) {
 				vm.message = response.data.length > 0 ? "" : "No books found";
 				vm.data = { books: response.data };
 				vm.booklist = response.data;
-vm.message = vm.booklist;
 			},
 			function error(e) {
 				vm.message = "Sorry, something went wrong";
@@ -29,7 +28,7 @@ vm.message = vm.booklist;
 	};
 	vm.getData();
 
-	vm.onSubmit = function() {
+	vm.onBookSubmit = function() {
 		if (!vm.title) {
 			vm.message = "Please enter a book title";
 		} else {
@@ -41,8 +40,6 @@ vm.message = vm.booklist;
 		vm.message = "Posting your book title: " + vm.title;
 		nextreadData.postBook(vm.title).then(
 			function success(addedBook) {
-				// vm.getData();
-vm.message = addedBook.data;
 				vm.booklist.push(addedBook.data);
 				vm.data = { books: vm.booklist };
 			},
