@@ -10,7 +10,6 @@
 
 		var saveToken = function (token) {
 			$window.localStorage['nextread-token'] = token;
-console.log(token);
 		};
 
 		var getToken = function () {
@@ -23,7 +22,7 @@ console.log(token);
 					saveToken(response.data.token);
 				},
 				function error(err) {
-					console.log('Error: ' + err);
+					console.log(err);
 				}
 			);
 		};
@@ -32,10 +31,11 @@ console.log(token);
 			return $http.post('/api/login', user).then(
 				function success(response) {
 					saveToken(response.data.token);
-				},
-				function error(err) {
-					console.log('Error: ' + err);
-				}
+				}//,
+				//function error(err) {
+				//	console.log(err);
+				//	return err;
+				//}
 			);
 		};
 
@@ -59,8 +59,7 @@ console.log(token);
 				var token = getToken();
 				var payload = JSON.parse($window.atob(token.split('.')[1]));
 				return {
-					email: payload.email,
-					name: payload.name
+					email: payload.email
 				};
 			}
 		};

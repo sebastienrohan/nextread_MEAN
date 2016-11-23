@@ -8,10 +8,6 @@ var userSchema = new mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	name: {
-		type: String,
-		required: true
-	},
 	hash: String,
 	salt: String
 });
@@ -33,7 +29,6 @@ userSchema.methods.generateJwt = function () {
 	return jwt.sign({
 		_id: this._id,
 		email: this.email,
-		name: this.name,
 		exp: parseInt(expiry.getTime() / 1000)
 	}, process.env.JWT_SECRET);
 };

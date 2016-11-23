@@ -18,7 +18,7 @@
 			password: ''
 		};
 
-		vm.returnPage = '/';
+		vm.returnPage = '/booklist';
 
 		vm.onSubmit = function () {
 			vm.formError = '';
@@ -40,7 +40,7 @@
 						$location.path(vm.returnPage);
 					},
 					function error(err) {
-						vm.formError = err;
+						vm.formError = err.data.message;
 					}
 				);
 		};

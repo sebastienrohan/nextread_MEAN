@@ -33,17 +33,17 @@ module.exports.booksCreate = function (req, res) {
       title: req.body.title
     }, function (err, book) {
       if (err) {
-        console.log(err);
+console.log(err);
         sendJSONresponse(res, 400, err);
       } else {
-        console.log(book);
+console.log(book);
         sendJSONresponse(res, 201, book);
       }
     });
   });
 };
 
-// validate that user is logged in
+// validate that user exists
 var User = mongoose.model('User');
 var getAccount = function (req, res, callback) {
   if (req.payload.email) {
@@ -62,12 +62,12 @@ var getAccount = function (req, res, callback) {
         callback(req, res);
       });
   } else {
+console.log('User not found');
     sendJSONresponse(res, 404, {
       'message': 'User not found'
     });
   }
 };
-
 
 module.exports.booksReadOne = function(req, res) {
   console.log('Finding book details', req.params);

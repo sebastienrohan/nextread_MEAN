@@ -10,3 +10,11 @@ form {
 	color: red;
 	margin: 24px 0;
 }
+
+.panel-home {
+	margin-top: 30%;
+}
+
+.btn-login {
+	margin-right: 12px;
+}

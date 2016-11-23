@@ -1,0 +1,44 @@
+<navigation></navigation>
+
+<div class="container">
+  <page-header content="vm.pageHeader"></page-header>
+  
+  <!-- New book input -->
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <form role="form" id="addBook" ng-submit="vm.onBookSubmit()">
+          <div class="form-inline">
+            <input id="title" type="text" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control"/>
+            <button type="submit" class="btn btn-lg btn-primary">+</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+<!-- Filter -->
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <input id="filter" type="text" name="filter" ng-model="textFilter" placeholder="Filter results" class="input-lg form-control"/>
+    <div class="error">{{ vm.message }}</div>
+
+    <!-- Book List -->
+    <div id="booklist" class="panel-group">
+      <div ng-repeat="book in vm.data.books | filter: textFilter" class="panel panel-default accordion-toggle">
+        <div class="panel-heading">
+          <h4 class="panel-title">{{ book.title + " - " + book.author }}</h4>
+        </div>
+        <div class="panel-collapse">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-8">{{ book.summary }}</div>
+              <div class="col-lg-4"><img src="/images/cover.jpg" class="img-responsive"/></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer-generic></footer-generic>
+</div>

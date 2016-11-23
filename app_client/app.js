@@ -19,6 +19,11 @@ function config($routeProvider, $locationProvider) {
 			controller: 'loginCtrl',
 			controllerAs: 'vm'
 		})
+		.when('/booklist', {
+			templateUrl: '/booklist/booklist.view.html',
+			controller: 'booklistCtrl',
+			controllerAs: 'vm'
+		})
 		.otherwise({redirectTo: '/'});
 	$locationProvider.html5Mode(true);
 }

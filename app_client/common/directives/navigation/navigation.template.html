@@ -5,12 +5,11 @@
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
-    </button><a href="/" class="navbar-brand">Nextread</a>
+    </button><a href="" ng-click="navvm.home()" class="navbar-brand">Nextread</a>
   </div>
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/login">Login</a></li>
-      <li><a href="/register">Register</a></li>
+      <li ng-show="navvm.isLoggedIn"><a href="" ng-click="navvm.logout()">Logout</a></li>
     </ul>
   </div>
 </nav>
