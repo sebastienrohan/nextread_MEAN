@@ -10,9 +10,8 @@ var ctrlAuth = require('../controllers/authentication');
 
 router.get('/books', auth, ctrlBooks.booksList);
 router.post('/books', auth, ctrlBooks.booksCreate);
-// router.get('/books/:bookid', ctrlBooks.booksReadOne);
-router.put('/books/:bookid', auth, ctrlBooks.booksUpdateOne);
-router.delete('/books/:bookid', auth, ctrlBooks.booksDeleteOne);
+router.put('/books', auth, ctrlBooks.booksUpdateOne);
+router.delete('/books', auth, ctrlBooks.booksDeleteOne);
 
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);

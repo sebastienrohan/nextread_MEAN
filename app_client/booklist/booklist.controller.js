@@ -47,6 +47,11 @@ function booklistCtrl(nextreadData) {
 			}
 		);
 	};
+
+	vm.delete = function(bookId) {
+		nextreadData.deleteBook(bookId);
+		vm.getData();
+	};
 }
 
 })();

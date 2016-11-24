@@ -25,7 +25,9 @@
     <div id="booklist" class="panel-group">
       <div ng-repeat="book in vm.data.books | filter: textFilter" class="panel panel-default accordion-toggle">
         <div class="panel-heading">
-          <h4 class="panel-title">{{ book.title + " - " + book.author }}</h4>
+          <h4 class="panel-title pull-left">{{ book.title + " - " + book.author }}</h4>
+          <button class="btn btn-warning pull-right" ng-click="vm.delete(book._id)">Delete</button>
+          <div class="clearfix"></div>
         </div>
         <div class="panel-collapse">
           <div class="panel-body">

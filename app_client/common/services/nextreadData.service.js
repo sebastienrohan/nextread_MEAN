@@ -28,8 +28,23 @@ function nextreadData($http, authentication) {
 		return $http(req);
 	};
 
+	var deleteBook = function(idToDelete) {
+		var req = {
+		    url: '/api/books',
+		    method: 'DELETE',
+		    json: true,
+		    headers: {
+		        "content-type": "application/json",
+				Authorization: 'Bearer ' + authentication.getToken()
+			},
+		    data: { id: idToDelete }
+		};
+		return $http(req);
+	};
+
 	return {
 		getBooks: getBooks,
-		postBook: postBook
+		postBook: postBook,
+		deleteBook: deleteBook
 	};
 }

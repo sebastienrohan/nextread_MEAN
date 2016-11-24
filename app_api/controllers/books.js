@@ -6,43 +6,6 @@ var sendJSONresponse = function (res, status, content) {
 	res.json(content);
 };
 
-module.exports.booksList = function (req, res) {
-  getAccount(req, res, function (req, res) {
-    Book
-    .find()
-    .exec(function(err, books) {
-      if (!books) {
-        sendJSONresponse(res, 404, {
-          "message": "Books not found"
-        });
-        return;
-      } else if (err) {
-          console.log(err);
-          sendJSONresponse(res, 404, err);
-          return;
-      }
-      console.log(books);
-      sendJSONresponse(res, 200, books);
-    });
-  });
-};
-
-module.exports.booksCreate = function (req, res) {
-  getAccount(req, res, function (req, res) {
-    Book.create({
-      title: req.body.title
-    }, function (err, book) {
-      if (err) {
-console.log(err);
-        sendJSONresponse(res, 400, err);
-      } else {
-console.log(book);
-        sendJSONresponse(res, 201, book);
-      }
-    });
-  });
-};
-
 // validate that user exists
 var User = mongoose.model('User');
 var getAccount = function (req, res, callback) {
@@ -62,38 +25,69 @@ var getAccount = function (req, res, callback) {
         callback(req, res);
       });
   } else {
-console.log('User not found');
-    sendJSONresponse(res, 404, {
+      sendJSONresponse(res, 404, {
       'message': 'User not found'
     });
   }
 };
 
-module.exports.booksReadOne = function(req, res) {
-  console.log('Finding book details', req.params);
-  if (req.params && req.params.bookid) {
+module.exports.booksList = function (req, res) {
+  getAccount(req, res, function (req, res) {
     Book
-      .findById(req.params.bookid)
-      .exec(function(err, book) {
-        if (!book) {
-          sendJSONresponse(res, 404, {
-            "message": req.params.bookid  + " not found"
-          });
-          return;
-        } else if (err) {
+    .find()
+    .exec(function(err, books) {
+      if (!books) {
+        sendJSONresponse(res, 404, {
+          "message": "Books not found"
+        });
+        return;
+      } else if (err) {
           console.log(err);
           sendJSONresponse(res, 404, err);
           return;
-        }
-        console.log(book);
-        sendJSONresponse(res, 200, book);
-      });
-  } else {
-    console.log('No bookid specified');
-    sendJSONresponse(res, 404, {
-      "message": "No bookid in request"
+      }
+      sendJSONresponse(res, 200, books);
     });
-  }
+  });
+};
+
+module.exports.booksCreate = function (req, res) {
+  getAccount(req, res, function (req, res) {
+    Book.create({
+      title: req.body.title
+    }, function (err, book) {
+      if (err) {
+        sendJSONresponse(res, 400, err);
+      } else {
+        sendJSONresponse(res, 201, book);
+      }
+    });
+  });
+};
+
+module.exports.booksDeleteOne = function(req, res) {
+  getAccount(req, res, function (req, res) {
+    var bookid = req.body.id;
+    if (bookid) {
+      Book
+        .findByIdAndRemove(bookid)
+        .exec(
+          function(err, book) {
+            if (err) {
+              console.log(err);
+              sendJSONresponse(res, 404, err);
+              return;
+            }
+            console.log("book id " + bookid + " deleted");
+            sendJSONresponse(res, 204, null);
+          }
+      );
+    } else {
+      sendJSONresponse(res, 404, {
+        "message": "No bookid"
+      });
+    }
+  });
 };
 
 module.exports.booksUpdateOne = function(req, res) {
@@ -128,25 +122,29 @@ module.exports.booksUpdateOne = function(req, res) {
   );
 };
 
-module.exports.booksDeleteOne = function(req, res) {
-  var bookid = req.params.bookid;
-  if (bookid) {
+module.exports.booksReadOne = function(req, res) {
+  console.log('Finding book details', req.params);
+  if (req.params && req.params.bookid) {
     Book
-      .findByIdAndRemove(bookid)
-      .exec(
-        function(err, book) {
-          if (err) {
-            console.log(err);
-            sendJSONresponse(res, 404, err);
-            return;
-          }
-          console.log("book id " + bookid + " deleted");
-          sendJSONresponse(res, 204, null);
+      .findById(req.params.bookid)
+      .exec(function(err, book) {
+        if (!book) {
+          sendJSONresponse(res, 404, {
+            "message": req.params.bookid  + " not found"
+          });
+          return;
+        } else if (err) {
+          console.log(err);
+          sendJSONresponse(res, 404, err);
+          return;
         }
-    );
+        console.log(book);
+        sendJSONresponse(res, 200, book);
+      });
   } else {
+    console.log('No bookid specified');
     sendJSONresponse(res, 404, {
-      "message": "No bookid"
+      "message": "No bookid in request"
     });
   }
 };
