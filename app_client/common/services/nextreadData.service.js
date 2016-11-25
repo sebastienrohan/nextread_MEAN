@@ -23,7 +23,9 @@ function nextreadData($http, authentication) {
 		        "content-type": "application/json",
 				Authorization: 'Bearer ' + authentication.getToken()
 			},
-		    data: { title: postedTitle }
+		    data: {
+		    	title: postedTitle
+		    }
 		};
 		return $http(req);
 	};

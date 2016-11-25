@@ -1,5 +1,7 @@
 var mongoose = require('mongoose').set('debug', true);
 var Book = mongoose.model('Book');
+var requ = require('request');
+var parseString = require('xml2js').parseString;
 
 var sendJSONresponse = function (res, status, content) {
 	res.status(status);
@@ -53,14 +55,25 @@ module.exports.booksList = function (req, res) {
 
 module.exports.booksCreate = function (req, res) {
   getAccount(req, res, function (req, res) {
-    Book.create({
-      title: req.body.title
-    }, function (err, book) {
-      if (err) {
-        sendJSONresponse(res, 400, err);
-      } else {
-        sendJSONresponse(res, 201, book);
-      }
+    requ.get('https://www.goodreads.com/search/index.xml?key=S2DDCAJNNZgPUhQwkjCA&q=' + req.body.title,
+      function (error, body) {
+      //error handling goes here!
+      parseString(body.body, function (err, result) {
+        //error handling goes here, too!
+        var author = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
+
+        //write book to DB
+        Book.create({
+          title: req.body.title,
+          author: author
+        }, function (err, book) {
+          if (err) {
+            sendJSONresponse(res, 400, err);
+          } else {
+            sendJSONresponse(res, 201, book);
+          }
+        });
+      });
     });
   });
 };
