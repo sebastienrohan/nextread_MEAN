@@ -57,24 +57,58 @@ module.exports.booksCreate = function (req, res) {
   getAccount(req, res, function (req, res) {
     requ.get('https://www.goodreads.com/search/index.xml?key=S2DDCAJNNZgPUhQwkjCA&q=' + req.body.title,
       function (error, body) {
-      //error handling goes here!
-      parseString(body.body, function (err, result) {
-        //error handling goes here, too!
-        var author = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
-
-        //write book to DB
-        Book.create({
-          title: req.body.title,
-          author: author
-        }, function (err, book) {
-          if (err) {
-            sendJSONresponse(res, 400, err);
+        if (error) { sendJSONresponse(res, 400, error); return; }
+        
+        //parse obtained XML
+        parseString(body.body, function (error, result) {
+          if (error) { sendJSONresponse(res, 400, error); return; }
+          else if (result.GoodreadsResponse.search[0]['total-results'][0] === "0") {
+            sendJSONresponse(res, 400, {
+              "message": "Book not found"
+            });
+            return;
           } else {
-            sendJSONresponse(res, 201, book);
+            var parsedResult = result.GoodreadsResponse.search[0].results[0].work[0];
+            var author = parsedResult.best_book[0].author[0].name[0];
+            var cover = parsedResult.best_book[0].image_url[0];
+            var rating = parsedResult.average_rating[0];
+
+            //2nd request, for the book description
+            requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + req.body.title, 
+              function (error, body) {
+                if (error) { sendJSONresponse(res, 400, error); return; }
+                parseString(body.body, function (error, result) {
+                  if (error) { sendJSONresponse(res, 400, error); return; }
+                  else if (result.GoodreadsResponse.book[0].description[0] === "") {
+                    sendJSONresponse(res, 400, {
+                      "message": "Description not found"
+                    });
+                    return;
+                  } else {
+                    var description = result.GoodreadsResponse.book[0].description[0];
+                    
+                    //write book to DB
+                    Book.create({
+                      title: req.body.title,
+                      author: author,
+                      cover: cover,
+                      rating: rating,
+                      description: description
+                    }, function (err, book) {
+                      if (err) {
+                        sendJSONresponse(res, 400, err);
+                      } else {
+                        sendJSONresponse(res, 201, book);
+                      }
+                    });
+                  }
+                });
+              }
+            );
           }
         });
-      });
-    });
+      }
+    );
   });
 };
 

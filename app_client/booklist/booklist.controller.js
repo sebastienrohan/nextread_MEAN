@@ -41,6 +41,7 @@ function booklistCtrl(nextreadData) {
 			function success(addedBook) {
 				vm.booklist.push(addedBook.data);
 				vm.data = { books: vm.booklist };
+				vm.message = "";
 			},
 			function error(e) {
 				vm.message = "Sorry, something went wrong : " + e.data.message;
