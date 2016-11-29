@@ -14,7 +14,7 @@ function nextreadData($http, authentication) {
 		});
 	};
 
-	var postBook = function(postedTitle) {
+	var postBook = function(postedTitle, postedAuthor) {
 		var req = {
 		    url: '/api/books',
 		    method: 'POST',
@@ -24,7 +24,8 @@ function nextreadData($http, authentication) {
 				Authorization: 'Bearer ' + authentication.getToken()
 			},
 		    data: {
-		    	title: postedTitle
+		    	title: postedTitle,
+		    	author: postedAuthor
 		    }
 		};
 		return $http(req);

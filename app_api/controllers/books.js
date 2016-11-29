@@ -8,6 +8,16 @@ var sendJSONresponse = function (res, status, content) {
 	res.json(content);
 };
 
+var toProperCase = function (title) {
+  var words = title.split(' ');
+  var results = [];
+  for (var i=0; i < words.length; i++) {
+      var letter = words[i].charAt(0).toUpperCase();
+      results.push(letter + words[i].slice(1));
+  }
+  return title = results.join(' ');
+}
+
 // validate that user exists
 var User = mongoose.model('User');
 var getAccount = function (req, res, callback) {
@@ -56,40 +66,48 @@ module.exports.booksList = function (req, res) {
 module.exports.booksCreate = function (req, res) {
   getAccount(req, res, function (req, res) {
     requ.get('https://www.goodreads.com/search/index.xml?key=S2DDCAJNNZgPUhQwkjCA&q=' + req.body.title,
-      function (error, body) {
+    function (error, body) {
+      if (error) { sendJSONresponse(res, 400, error); return; }
+      //parse obtained XML
+      parseString(body.body, function (error, result) {
+console.log('requested author: ' + req.body.author);
+        var best_auth = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
+console.log('obtained author: ' + best_auth);
+        var work_list = result.GoodreadsResponse.search[0].results[0].work;
         if (error) { sendJSONresponse(res, 400, error); return; }
-        
-        //parse obtained XML
-        parseString(body.body, function (error, result) {
-          if (error) { sendJSONresponse(res, 400, error); return; }
-          else if (result.GoodreadsResponse.search[0]['total-results'][0] === "0") {
-            sendJSONresponse(res, 400, {
-              "message": "Book not found"
-            });
-            return;
-          } else {
-            var parsedResult = result.GoodreadsResponse.search[0].results[0].work[0];
-            var author = parsedResult.best_book[0].author[0].name[0];
-            var cover = parsedResult.best_book[0].image_url[0];
-            var rating = parsedResult.average_rating[0];
+        if (result.GoodreadsResponse.search[0]['total-results'][0] == 0) {
+          sendJSONresponse(res, 400, {
+            "message": "Book not found"
+          });
+          return;
+        }
+        //if an author was precised and isn't the first one returned by API
 
-            //2nd request, for the book description
-            requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + req.body.title, 
+        // + faire une fonction author = req.body.author sans accent et avec intiales en majuscules
+        author = toProperCase(req.body.author);
+        if (author && author !== best_auth) {
+          //look for requested author inside obtained results
+console.log('Authors:\n');
+          for (var auth in work_list) {
+console.log(work_list[auth].best_book[0].author[0].name[0]);
+            if (work_list[auth].best_book[0].author[0].name[0] === author) {
+
+              var cover = work_list[auth].best_book[0].image_url[0];
+              var rating = work_list[auth].average_rating[0];
+              var title = work_list[auth].best_book[0].title[0];
+              
+              requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
               function (error, body) {
                 if (error) { sendJSONresponse(res, 400, error); return; }
+console.log(title);
+                //parse obtained XML
                 parseString(body.body, function (error, result) {
                   if (error) { sendJSONresponse(res, 400, error); return; }
-                  else if (result.GoodreadsResponse.book[0].description[0] === "") {
-                    sendJSONresponse(res, 400, {
-                      "message": "Description not found"
-                    });
-                    return;
-                  } else {
+                  else {
                     var description = result.GoodreadsResponse.book[0].description[0];
-                    
                     //write book to DB
                     Book.create({
-                      title: req.body.title,
+                      title: title,
                       author: author,
                       cover: cover,
                       rating: rating,
@@ -103,12 +121,54 @@ module.exports.booksCreate = function (req, res) {
                     });
                   }
                 });
-              }
-            );
+              });
+              return;
+            }
           }
+          sendJSONresponse(res, 400, {
+            "message": "Book not found for this author"
+          });
+          return;
+        }
+        // + getDescription(title, author);
+        //go on with the search
+        var parsedResult = result.GoodreadsResponse.search[0].results[0].work[0];
+        // var author = author;
+        var author = parsedResult.best_book[0].author[0].name[0];
+        var cover = parsedResult.best_book[0].image_url[0];
+        var rating = parsedResult.average_rating[0];
+        var title = parsedResult.best_book[0].title[0];
+
+        //2nd request, for the book description
+        requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
+        function (error, body) {
+          if (error) { sendJSONresponse(res, 400, error); return; }
+  console.log(title);
+          //parse obtained XML
+          parseString(body.body, function (error, result) {
+            if (error) { sendJSONresponse(res, 400, error); return; }
+            else {
+              var description = result.GoodreadsResponse.book[0].description[0];
+              //write book to DB
+              Book.create({
+                title: title,
+                author: author,
+                cover: cover,
+                rating: rating,
+                description: description
+              }, function (err, book) {
+                if (err) {
+                  sendJSONresponse(res, 400, err);
+                } else {
+                  sendJSONresponse(res, 201, book);
+                }
+              });
+            }
+          });
         });
-      }
-    );
+
+      });
+    });
   });
 };
 

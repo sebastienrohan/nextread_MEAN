@@ -9,6 +9,7 @@
         <form role="form" id="addBook" ng-submit="vm.onBookSubmit()">
           <div class="form-inline">
             <input id="title" type="text" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control"/>
+            <input id="author" type="text" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input-lg form-control"/>
             <button type="submit" class="btn btn-lg btn-primary">+</button>
           </div>
         </form>

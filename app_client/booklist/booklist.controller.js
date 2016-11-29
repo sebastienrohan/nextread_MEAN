@@ -37,7 +37,7 @@ function booklistCtrl(nextreadData) {
 	};
 
 	vm.postData = function() {
-		nextreadData.postBook(vm.title).then(
+		nextreadData.postBook(vm.title, vm.author).then(
 			function success(addedBook) {
 				vm.booklist.push(addedBook.data);
 				vm.data = { books: vm.booklist };
