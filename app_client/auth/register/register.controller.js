@@ -40,7 +40,7 @@
 						$location.path(vm.returnPage);
 					},
 					function error(err) {
-						vm.formError = err;
+						vm.formError = 'An account with this email already exists, please try again';
 					}
 				);
 		};

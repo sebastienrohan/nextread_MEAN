@@ -18,6 +18,7 @@ module.exports.register = function (req, res) {
 	var user = new User();
 
 	user.email = req.body.email;
+	user.bookshelf = [];
 
 	user.setPassword(req.body.password);
 

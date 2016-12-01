@@ -8,17 +8,17 @@ var sendJSONresponse = function (res, status, content) {
 	res.json(content);
 };
 
-var toProperCase = function (title) {
-  var words = title.split(' ');
+var toProperCase = function (name) {
+  var words = name.split(' ');
   var results = [];
   for (var i=0; i < words.length; i++) {
       var letter = words[i].charAt(0).toUpperCase();
       results.push(letter + words[i].slice(1));
   }
-  return title = results.join(' ');
+  return name = results.join(' ');
 }
 
-// validate that user exists
+//  validate that user exists
 var User = mongoose.model('User');
 var getAccount = function (req, res, callback) {
   if (req.payload.email) {
@@ -68,12 +68,8 @@ module.exports.booksCreate = function (req, res) {
     requ.get('https://www.goodreads.com/search/index.xml?key=S2DDCAJNNZgPUhQwkjCA&q=' + req.body.title,
     function (error, body) {
       if (error) { sendJSONresponse(res, 400, error); return; }
-      //parse obtained XML
+      // parse obtained XML
       parseString(body.body, function (error, result) {
-console.log('requested author: ' + req.body.author);
-        var best_auth = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
-console.log('obtained author: ' + best_auth);
-        var work_list = result.GoodreadsResponse.search[0].results[0].work;
         if (error) { sendJSONresponse(res, 400, error); return; }
         if (result.GoodreadsResponse.search[0]['total-results'][0] == 0) {
           sendJSONresponse(res, 400, {
@@ -81,31 +77,27 @@ console.log('obtained author: ' + best_auth);
           });
           return;
         }
-        //if an author was precised and isn't the first one returned by API
-
-        // + faire une fonction author = req.body.author sans accent et avec intiales en majuscules
-        author = toProperCase(req.body.author);
-        if (author && author !== best_auth) {
-          //look for requested author inside obtained results
-console.log('Authors:\n');
+        var best_auth = result.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name[0];
+        var work_list = result.GoodreadsResponse.search[0].results[0].work;
+        // if an author was precised and isn't the first one returned by API
+        if (req.body.author && toProperCase(req.body.author) !== best_auth) {
+          // look for requested author inside obtained results
+          var author = toProperCase(req.body.author);
           for (var auth in work_list) {
-console.log(work_list[auth].best_book[0].author[0].name[0]);
             if (work_list[auth].best_book[0].author[0].name[0] === author) {
-
               var cover = work_list[auth].best_book[0].image_url[0];
               var rating = work_list[auth].average_rating[0];
               var title = work_list[auth].best_book[0].title[0];
-              
+              // get description for the right book
               requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
               function (error, body) {
                 if (error) { sendJSONresponse(res, 400, error); return; }
-console.log(title);
-                //parse obtained XML
+                // parse obtained XML
                 parseString(body.body, function (error, result) {
                   if (error) { sendJSONresponse(res, 400, error); return; }
                   else {
                     var description = result.GoodreadsResponse.book[0].description[0];
-                    //write book to DB
+                    // write book to DB
                     Book.create({
                       title: title,
                       author: author,
@@ -130,26 +122,23 @@ console.log(title);
           });
           return;
         }
-        // + getDescription(title, author);
-        //go on with the search
+        // if no author was precised
         var parsedResult = result.GoodreadsResponse.search[0].results[0].work[0];
-        // var author = author;
         var author = parsedResult.best_book[0].author[0].name[0];
         var cover = parsedResult.best_book[0].image_url[0];
         var rating = parsedResult.average_rating[0];
         var title = parsedResult.best_book[0].title[0];
-
-        //2nd request, for the book description
+        // 2nd request, for the book description
         requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
         function (error, body) {
           if (error) { sendJSONresponse(res, 400, error); return; }
   console.log(title);
-          //parse obtained XML
+          // parse obtained XML
           parseString(body.body, function (error, result) {
             if (error) { sendJSONresponse(res, 400, error); return; }
             else {
               var description = result.GoodreadsResponse.book[0].description[0];
-              //write book to DB
+              // write book to DB
               Book.create({
                 title: title,
                 author: author,
@@ -195,63 +184,4 @@ module.exports.booksDeleteOne = function(req, res) {
       });
     }
   });
-};
-
-module.exports.booksUpdateOne = function(req, res) {
-  if (!req.params.bookid) {
-    sendJSONresponse(res, 404, {
-      "message": "Not found, bookid is required"
-    });
-    return;
-  }
-  Book
-    .findById(req.params.bookid)
-    .exec(
-      function(err, book) {
-        if (!book) {
-          sendJSONresponse(res, 404, {
-            "message": "bookid not found"
-          });
-          return;
-        } else if (err) {
-          sendJSONresponse(res, 400, err);
-          return;
-        }
-        book.title = req.body.title;
-        book.save(function(err, book) {
-          if (err) {
-            sendJSONresponse(res, 404, err);
-          } else {
-            sendJSONresponse(res, 200, book);
-          }
-        });
-      }
-  );
-};
-
-module.exports.booksReadOne = function(req, res) {
-  console.log('Finding book details', req.params);
-  if (req.params && req.params.bookid) {
-    Book
-      .findById(req.params.bookid)
-      .exec(function(err, book) {
-        if (!book) {
-          sendJSONresponse(res, 404, {
-            "message": req.params.bookid  + " not found"
-          });
-          return;
-        } else if (err) {
-          console.log(err);
-          sendJSONresponse(res, 404, err);
-          return;
-        }
-        console.log(book);
-        sendJSONresponse(res, 200, book);
-      });
-  } else {
-    console.log('No bookid specified');
-    sendJSONresponse(res, 404, {
-      "message": "No bookid in request"
-    });
-  }
 };

@@ -20,9 +20,6 @@
 			return $http.post('/api/register', user).then(
 				function success(response) {
 					saveToken(response.data.token);
-				},
-				function error(err) {
-					console.log(err);
 				}
 			);
 		};
@@ -31,11 +28,7 @@
 			return $http.post('/api/login', user).then(
 				function success(response) {
 					saveToken(response.data.token);
-				}//,
-				//function error(err) {
-				//	console.log(err);
-				//	return err;
-				//}
+				}
 			);
 		};
 
