@@ -31,7 +31,7 @@ function nextreadData($http, authentication) {
 		return $http(req);
 	};
 
-	var deleteBook = function(idToDelete) {
+	var deleteBook = function(bookToDelete) {
 		var req = {
 		    url: '/api/books',
 		    method: 'DELETE',
@@ -40,7 +40,7 @@ function nextreadData($http, authentication) {
 		        "content-type": "application/json",
 				Authorization: 'Bearer ' + authentication.getToken()
 			},
-		    data: { id: idToDelete }
+		    data: { bookToDelete: bookToDelete }
 		};
 		return $http(req);
 	};

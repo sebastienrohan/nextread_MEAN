@@ -9,7 +9,7 @@ var ctrlBooks = require('../controllers/books');
 var ctrlAuth = require('../controllers/authentication');
 
 router.get('/books', auth, ctrlBooks.booksList);
-router.post('/books', auth, ctrlBooks.booksCreate);
+router.post('/books', auth, ctrlBooks.booksCreateOne);
 router.delete('/books', auth, ctrlBooks.booksDeleteOne);
 
 router.post('/register', ctrlAuth.register);

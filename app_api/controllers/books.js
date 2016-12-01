@@ -1,5 +1,6 @@
 var mongoose = require('mongoose').set('debug', true);
 var Book = mongoose.model('Book');
+var User = mongoose.model('User');
 var requ = require('request');
 var parseString = require('xml2js').parseString;
 
@@ -18,8 +19,7 @@ var toProperCase = function (name) {
   return name = results.join(' ');
 }
 
-//  validate that user exists
-var User = mongoose.model('User');
+//  validate that user exists & get email
 var getAccount = function (req, res, callback) {
   if (req.payload.email) {
     User
@@ -34,7 +34,7 @@ var getAccount = function (req, res, callback) {
           sendJSONresponse(res, 404, err);
           return;
         }
-        callback(req, res);
+        callback(req, res, user);
       });
   } else {
       sendJSONresponse(res, 404, {
@@ -44,27 +44,19 @@ var getAccount = function (req, res, callback) {
 };
 
 module.exports.booksList = function (req, res) {
-  getAccount(req, res, function (req, res) {
-    Book
-    .find()
-    .exec(function(err, books) {
-      if (!books) {
-        sendJSONresponse(res, 404, {
-          "message": "Books not found"
-        });
-        return;
-      } else if (err) {
-          console.log(err);
-          sendJSONresponse(res, 404, err);
-          return;
-      }
-      sendJSONresponse(res, 200, books);
-    });
+  getAccount(req, res, function (req, res, user) {
+    if (!user.bookshelf) {
+      sendJSONresponse(res, 404, {
+        "message": "Books not found"
+      });
+      return;
+    }
+    sendJSONresponse(res, 200, user.bookshelf);
   });
 };
 
-module.exports.booksCreate = function (req, res) {
-  getAccount(req, res, function (req, res) {
+module.exports.booksCreateOne = function (req, res) {
+  getAccount(req, res, function (req, res, user) {
     requ.get('https://www.goodreads.com/search/index.xml?key=S2DDCAJNNZgPUhQwkjCA&q=' + req.body.title,
     function (error, body) {
       if (error) { sendJSONresponse(res, 400, error); return; }
@@ -97,18 +89,20 @@ module.exports.booksCreate = function (req, res) {
                   if (error) { sendJSONresponse(res, 400, error); return; }
                   else {
                     var description = result.GoodreadsResponse.book[0].description[0];
-                    // write book to DB
-                    Book.create({
+                    // add new book to bookshelf
+                    user.bookshelf.push({
                       title: title,
                       author: author,
                       cover: cover,
                       rating: rating,
                       description: description
-                    }, function (err, book) {
+                    });
+                    // update user in DB
+                    user.save(function (err, updatedUser) {
                       if (err) {
                         sendJSONresponse(res, 400, err);
                       } else {
-                        sendJSONresponse(res, 201, book);
+                        sendJSONresponse(res, 201, updatedUser.bookshelf);
                       }
                     });
                   }
@@ -132,24 +126,25 @@ module.exports.booksCreate = function (req, res) {
         requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
         function (error, body) {
           if (error) { sendJSONresponse(res, 400, error); return; }
-  console.log(title);
           // parse obtained XML
           parseString(body.body, function (error, result) {
             if (error) { sendJSONresponse(res, 400, error); return; }
             else {
               var description = result.GoodreadsResponse.book[0].description[0];
-              // write book to DB
-              Book.create({
+              // add new book to bookshelf
+              user.bookshelf.push({
                 title: title,
                 author: author,
                 cover: cover,
                 rating: rating,
                 description: description
-              }, function (err, book) {
+              });
+              // update user in DB
+              user.save(function (err, updatedUser) {
                 if (err) {
                   sendJSONresponse(res, 400, err);
                 } else {
-                  sendJSONresponse(res, 201, book);
+                  sendJSONresponse(res, 201, updatedUser.bookshelf);
                 }
               });
             }
@@ -162,26 +157,22 @@ module.exports.booksCreate = function (req, res) {
 };
 
 module.exports.booksDeleteOne = function(req, res) {
-  getAccount(req, res, function (req, res) {
-    var bookid = req.body.id;
-    if (bookid) {
-      Book
-        .findByIdAndRemove(bookid)
-        .exec(
-          function(err, book) {
-            if (err) {
-              console.log(err);
-              sendJSONresponse(res, 404, err);
-              return;
-            }
-            console.log("book id " + bookid + " deleted");
-            sendJSONresponse(res, 204, null);
-          }
-      );
-    } else {
-      sendJSONresponse(res, 404, {
-        "message": "No bookid"
-      });
-    }
+  getAccount(req, res, function (req, res, user) {
+    var i = 0;
+    user.bookshelf.forEach(function(book) {
+      if (book.title === req.body.bookToDelete) {
+        // delete book from shelf
+        user.bookshelf.splice(i, 1);
+      }
+      i++;
+    });
+    // update user in DB
+    user.save(function (err, updatedUser) {
+      if (err) {
+        sendJSONresponse(res, 400, err);
+      } else {
+        sendJSONresponse(res, 200, updatedUser.bookshelf);
+      }
+    });
   });
 };

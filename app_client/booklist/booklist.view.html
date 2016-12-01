@@ -28,7 +28,7 @@
         <div class="panel-heading">
           <h4 class="panel-title pull-left">{{ book.title + " - " + book.author }}</h4>
           <small class="rating-stars" rating-stars rating="book.rating"></small>
-          <button class="btn btn-warning pull-right" ng-click="vm.delete(book._id)">Delete</button>
+          <button class="btn btn-warning pull-right" ng-click="vm.delete(book.title)">Delete</button>
           <div class="clearfix"></div>
         </div>
         <div class="panel-collapse">
