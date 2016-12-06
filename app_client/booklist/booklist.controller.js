@@ -17,7 +17,6 @@ function booklistCtrl(nextreadData) {
 	vm.getData = function() {
 		nextreadData.getBooks().then(
 			function success(response) {
-				vm.data = { books: response.data };
 				vm.booklist = response.data;
 			},
 			function error(e) {
@@ -39,7 +38,6 @@ function booklistCtrl(nextreadData) {
 		nextreadData.postBook(vm.title, vm.author).then(
 			function success(updatedBookshelf) {
 				vm.booklist = updatedBookshelf.data;
-				vm.data = { books: vm.booklist };
 				vm.message = "";
 			},
 			function error(e) {
@@ -52,7 +50,6 @@ function booklistCtrl(nextreadData) {
 		nextreadData.deleteBook(bookToDelete).then(
 			function success(updatedBookshelf) {
 				vm.booklist = updatedBookshelf.data;
-				vm.data = { books: vm.booklist };
 				vm.message = "";
 			},
 			function error(e) {
@@ -60,6 +57,18 @@ function booklistCtrl(nextreadData) {
 			}
 		);
 	};
+
+	vm.dragend = function(newBookshelf) {
+		nextreadData.updateBookshelf(newBookshelf).then(
+			function success() {
+				console.log('Bookshelf updated in DB');
+			},
+			function error(e) {
+				vm.message = "Sorry, something went wrong : " + e.data.message;
+			}
+		);
+	};
+
 }
 
 })();

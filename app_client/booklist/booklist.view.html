@@ -6,11 +6,11 @@
   <!-- New book input -->
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
-        <form role="form" id="addBook" ng-submit="vm.onBookSubmit()">
+        <form role="form" ng-submit="vm.onBookSubmit()">
           <div class="form-inline">
             <input id="title" type="text" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control"/>
             <input id="author" type="text" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input-lg form-control"/>
-            <button type="submit" class="btn btn-lg btn-primary">+</button>
+            <button id="addBook" type="submit" class="btn btn-lg btn-primary">+</button>
           </div>
         </form>
       </div>
@@ -19,12 +19,17 @@
 <!-- Filter -->
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2">
-    <input id="filter" type="text" name="filter" ng-model="textFilter" placeholder="Filter results" class="input-lg form-control"/>
     <div class="error">{{ vm.message }}</div>
 
     <!-- Book List -->
-    <div id="booklist" class="panel-group">
-      <div ng-repeat="book in vm.data.books | filter: textFilter" class="panel panel-default accordion-toggle">
+    <div id="booklist" class="panel-group" ng-model="booklist" dnd-list="vm.booklist">
+      <div ng-repeat="book in vm.booklist" class="panel panel-default accordion-toggle"
+        dnd-draggable="book"
+        dnd-moved="vm.booklist.splice($index, 1)"
+        dnd-effect-allowed="move"
+        dnd-dragend="vm.dragend(vm.booklist)"
+        dnd-selected="models.selected = book"
+        ng-class="{'selected': models.selected === book}">
         <div class="panel-heading">
           <h4 class="panel-title pull-left">{{ book.title + " - " + book.author }}</h4>
           <small class="rating-stars" rating-stars rating="book.rating"></small>

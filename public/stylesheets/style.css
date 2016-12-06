@@ -22,3 +22,9 @@ form {
 .rating-stars {
 	margin-left: 12px;
 }
+
+.dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}

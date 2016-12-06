@@ -176,3 +176,17 @@ module.exports.booksDeleteOne = function(req, res) {
     });
   });
 };
+
+module.exports.booksUpdateBookshelf = function(req, res) {
+  getAccount(req, res, function (req, res, user) {
+    user.bookshelf = req.body.updatedBookshelf;
+    // update user in DB
+    user.save(function (err) {
+      if (err) {
+        sendJSONresponse(res, 400, err);
+      } else {
+        sendJSONresponse(res, 200, null);
+      }
+    });
+  });
+};

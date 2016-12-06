@@ -1,6 +1,6 @@
 (function(){
 
-angular.module('nextreadApp', ['ngRoute', 'ngSanitize']);
+angular.module('nextreadApp', ['ngRoute', 'ngSanitize', 'dndLists']);
 
 function config($routeProvider, $locationProvider) {
 	$routeProvider

@@ -45,9 +45,26 @@ function nextreadData($http, authentication) {
 		return $http(req);
 	};
 
+	var updateBookshelf = function(updatedBookshelf) {
+		var req = {
+		    url: '/api/bookshelf',
+		    method: 'POST',
+		    json: true,
+		    headers: {
+		        "content-type": "application/json",
+				Authorization: 'Bearer ' + authentication.getToken()
+			},
+		    data: {
+		    	updatedBookshelf: updatedBookshelf
+		    }
+		};
+		return $http(req);
+	};
+
 	return {
 		getBooks: getBooks,
 		postBook: postBook,
-		deleteBook: deleteBook
+		deleteBook: deleteBook,
+		updateBookshelf: updateBookshelf
 	};
 }
