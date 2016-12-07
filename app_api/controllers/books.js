@@ -130,7 +130,10 @@ module.exports.booksCreateOne = function (req, res) {
           parseString(body.body, function (error, result) {
             if (error) { sendJSONresponse(res, 400, error); return; }
             else {
-              var description = result.GoodreadsResponse.book[0].description[0];
+              var description = 'No description available.';
+              if(result.GoodreadsResponse && result.GoodreadsResponse.book[0].description[0].length > 3) {
+                var description = result.GoodreadsResponse.book[0].description[0];
+              }
               // add new book to bookshelf
               user.bookshelf.push({
                 title: title,

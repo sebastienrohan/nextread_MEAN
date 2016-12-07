@@ -4,7 +4,7 @@ angular
 	.module('nextreadApp')
 	.controller('booklistCtrl', booklistCtrl);
 
-function booklistCtrl(nextreadData) {
+function booklistCtrl(nextreadData, ngProgressFactory) {
 
 	var vm = this;
 	vm.pageHeader = {
@@ -14,22 +14,46 @@ function booklistCtrl(nextreadData) {
 
 	vm.booklist = null;
 
+	vm.progressbar = ngProgressFactory.createInstance();
+	vm.progressbar.setColor('#158cba');
+
 	vm.getData = function() {
 		nextreadData.getBooks().then(
 			function success(response) {
 				vm.booklist = response.data;
+				vm.progressbar.complete();
 			},
 			function error(e) {
+				vm.progressbar.reset();
 				vm.message = "Sorry, something went wrong" + e.data.message;
 			}
 		);
 	};
+
+	// init page
+	vm.progressbar.start();
 	vm.getData();
+	
+
+	function validateTitle(title) {
+	    var re = /^[a-z0-9]+$/i;
+	    return (re.test(title) && title.length < 51);
+	};
+
+	function validateAuthor(author) {
+	    var re = /^[a-z]+$/i;
+	    return (re.test(author) && author.length < 51);
+	};
 
 	vm.onBookSubmit = function() {
 		if (!vm.title) {
 			vm.message = "Please enter a book title";
+		} else if (!validateTitle(vm.title)) {
+			vm.message = "Please enter a valid book title";
+		} else if (!validateAuthor(vm.author)) {
+			vm.message = "Please enter a valid author name";
 		} else {
+			vm.progressbar.start();
 			vm.postData();
 		}
 	};
@@ -39,8 +63,10 @@ function booklistCtrl(nextreadData) {
 			function success(updatedBookshelf) {
 				vm.booklist = updatedBookshelf.data;
 				vm.message = "";
+				vm.progressbar.complete();
 			},
 			function error(e) {
+				vm.progressbar.reset();
 				vm.message = "Sorry, something went wrong : " + e.data.message;
 			}
 		);

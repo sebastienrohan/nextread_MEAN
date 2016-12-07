@@ -20,10 +20,15 @@
 
 		vm.returnPage = '/booklist';
 
+		function validateEmail(email) {
+		    var re = /\S+@\S+\.\S+/;
+		    return re.test(email);
+		};
+
 		vm.onSubmit = function () {
 			vm.formError = '';
 
-			if (!vm.credentials.email || !vm.credentials.password) {
+			if (!vm.credentials.email || !validateEmail(vm.credentials.email) || !vm.credentials.password) {
 				vm.formError = 'All fields required, please try again';
 				return false;
 			} else {

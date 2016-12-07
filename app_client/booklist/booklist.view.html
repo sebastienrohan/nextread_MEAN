@@ -8,9 +8,9 @@
       <div class="col-lg-8 col-lg-offset-2">
         <form role="form" ng-submit="vm.onBookSubmit()">
           <div class="form-inline">
-            <input id="title" type="text" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control"/>
-            <input id="author" type="text" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input-lg form-control"/>
-            <button id="addBook" type="submit" class="btn btn-lg btn-primary">+</button>
+            <input id="title" type="text" pattern="[a-zA-Z0-9]{1,50}" title="Title should only contain letters & numbers, max. 50 characters" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control" required />
+            <button id="addBook" type="submit" class="btn btn-lg btn-primary">Add book</button>
+            <input id="author" type="text" pattern="[a-zA-Z]{1,50}" title="Author name should only contain letters, max. 50 characters" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input-lg form-control" />
           </div>
         </form>
       </div>
@@ -23,20 +23,22 @@
 
     <!-- Book List -->
     <div id="booklist" class="panel-group" ng-model="booklist" dnd-list="vm.booklist">
-      <div ng-repeat="book in vm.booklist" class="panel panel-default accordion-toggle"
-        dnd-draggable="book"
-        dnd-moved="vm.booklist.splice($index, 1)"
-        dnd-effect-allowed="move"
-        dnd-dragend="vm.dragend(vm.booklist)"
-        dnd-selected="models.selected = book"
-        ng-class="{'selected': models.selected === book}">
+      <div ng-repeat="book in vm.booklist" class="panel panel-default accordion-toggle">
         <div class="panel-heading">
           <h4 class="panel-title pull-left">{{ book.title + " - " + book.author }}</h4>
           <small class="rating-stars" rating-stars rating="book.rating"></small>
           <button class="btn btn-warning pull-right" ng-click="vm.delete(book.title)">Delete</button>
+          <button class="btn pull-right" ng-click="showDetails = ! showDetails">Details</button>
+          <button class="btn btn-move pull-right"
+          dnd-draggable="book"
+          dnd-moved="vm.booklist.splice($index, 1)"
+          dnd-effect-allowed="move"
+          dnd-dragend="vm.dragend(vm.booklist)"
+          dnd-selected="models.selected = book"
+          ng-class="{'selected': models.selected === book}">Move</button>
           <div class="clearfix"></div>
         </div>
-        <div class="panel-collapse">
+        <div class="panel-collapse panel-hidden" ng-class="{'panel-shown': showDetails}">
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-4"><img ng-src="{{ book.cover }}" class="img-responsive"/></div>
