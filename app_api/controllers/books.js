@@ -80,6 +80,9 @@ module.exports.booksCreateOne = function (req, res) {
               var cover = work_list[auth].best_book[0].image_url[0];
               var rating = work_list[auth].average_rating[0];
               var title = work_list[auth].best_book[0].title[0];
+              // look for a parenthesis in title and cut it out
+              title = title.split('(')[0];
+              console.log(title);
               // get description for the right book
               requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
               function (error, body) {
@@ -122,6 +125,9 @@ module.exports.booksCreateOne = function (req, res) {
         var cover = parsedResult.best_book[0].image_url[0];
         var rating = parsedResult.average_rating[0];
         var title = parsedResult.best_book[0].title[0];
+        // look for a parenthesis in title and cut it out
+        title = title.split('(')[0];
+        console.log(title);
         // 2nd request, for the book description
         requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
         function (error, body) {

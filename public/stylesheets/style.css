@@ -1,5 +1,26 @@
 body {
-	margin-top: 50px;
+	margin-top: 80px;
+}
+
+h1 {
+	margin-bottom: -4px;
+}
+
+.strapline {
+	font-style: italic;
+}
+
+.panel-home {
+	margin-top: 25%;
+	font-size: 17px;
+}
+
+.panel-home h4 {
+	font-size: 22px;
+}
+
+.btn-login {
+	margin-right: 12px;
 }
 
 form {
@@ -11,12 +32,8 @@ form {
 	margin: 24px 0;
 }
 
-.panel-home {
-	margin-top: 30%;
-}
-
-.btn-login {
-	margin-right: 12px;
+.author {
+	font-size: 14px;
 }
 
 .rating-stars {
@@ -30,14 +47,28 @@ form {
 }
 
 .panel-hidden {
-	display: none;
+	opacity:0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    -webkit-transition: all .3s ease .15s;
+  	-moz-transition: all .3s ease .15s;
+  	-o-transition: all .3s ease .15s;
+  	-ms-transition: all .3s ease .15s;
+  	transition: all .3s ease .15s;
 }
 
 .panel-shown {
-    display: block;
+	opacity:1;
+    height: 100%;
+    -webkit-transition: all .3s ease .15s;
+  	-moz-transition: all .3s ease .15s;
+  	-o-transition: all .3s ease .15s;
+  	-ms-transition: all .3s ease .15s;
+  	transition: all .3s ease .15s;
 }
 
-.btn {
+.btn-title {
 	margin-left: 8px;
 }
 

@@ -36,12 +36,12 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 	
 
 	function validateTitle(title) {
-	    var re = /^[a-z0-9]+$/i;
+	    var re = /^[a-zA-Z0-9 ]+$/i;
 	    return (re.test(title) && title.length < 51);
 	};
 
 	function validateAuthor(author) {
-	    var re = /^[a-z]+$/i;
+	    var re = /^[a-zA-Z ]+$/i;
 	    return (re.test(author) && author.length < 51);
 	};
 
@@ -50,7 +50,7 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 			vm.message = "Please enter a book title";
 		} else if (!validateTitle(vm.title)) {
 			vm.message = "Please enter a valid book title";
-		} else if (!validateAuthor(vm.author)) {
+		} else if (vm.author && !validateAuthor(vm.author)) {
 			vm.message = "Please enter a valid author name";
 		} else {
 			vm.progressbar.start();

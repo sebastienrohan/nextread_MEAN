@@ -313,7 +313,7 @@ h2,h3{page-break-after:avoid}
 .glyphicon-menu-down:before{content:"\e259"}
 .glyphicon-menu-up:before{content:"\e260"}
 *,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
-body{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#555}
+body{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.42857143;color:#555}
 button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 a{color:#158cba;text-decoration:none}
 a:focus,a:hover{color:#158cba;text-decoration:underline}
@@ -339,7 +339,7 @@ hr{margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}
 .h5,h5{font-size:14px}
 .h6,h6{font-size:12px}
 p{margin:0 0 10px}
-.lead{margin-bottom:20px;font-size:16px;font-weight:300;line-height:1.4}
+.lead{margin-bottom:50px;font-size:16px;font-weight:300;line-height:1.4}
 address,blockquote .small,blockquote footer,blockquote small,dd,dt,pre{line-height:1.42857143}
 dt,kbd kbd{font-weight:700}
 @media (min-width:768px){.lead{font-size:21px}
@@ -993,7 +993,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-right~.navbar-right{margin-right:0}
 }
 .navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}
-.navbar-default .navbar-brand{color:#333}
+.navbar-default .navbar-brand{color:#999}
 .navbar-default .navbar-brand:focus,.navbar-default .navbar-brand:hover{color:#333;background-color:transparent}
 .navbar-default .navbar-text{color:#555}
 .navbar-default .navbar-nav>li>a{color:#999}
@@ -1189,7 +1189,7 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
 .panel-body{padding:15px}
 .panel-heading{padding:10px 15px;border-bottom:1px solid transparent;border-top-right-radius:3px;border-top-left-radius:3px}
 .panel-group .panel-heading,.panel>.table-bordered>tbody>tr:first-child>td,.panel>.table-bordered>tbody>tr:first-child>th,.panel>.table-bordered>tbody>tr:last-child>td,.panel>.table-bordered>tbody>tr:last-child>th,.panel>.table-bordered>tfoot>tr:last-child>td,.panel>.table-bordered>tfoot>tr:last-child>th,.panel>.table-bordered>thead>tr:first-child>td,.panel>.table-bordered>thead>tr:first-child>th,.panel>.table-responsive>.table-bordered>tbody>tr:first-child>td,.panel>.table-responsive>.table-bordered>tbody>tr:first-child>th,.panel>.table-responsive>.table-bordered>tbody>tr:last-child>td,.panel>.table-responsive>.table-bordered>tbody>tr:last-child>th,.panel>.table-responsive>.table-bordered>tfoot>tr:last-child>td,.panel>.table-responsive>.table-bordered>tfoot>tr:last-child>th,.panel>.table-responsive>.table-bordered>thead>tr:first-child>td,.panel>.table-responsive>.table-bordered>thead>tr:first-child>th{border-bottom:0}
-.panel-title{margin-top:0;font-size:16px}
+.panel-title{font-size:16px}
 .panel-footer{padding:10px 15px;background-color:#f5f5f5;border-top:1px solid transparent;border-bottom-right-radius:3px;border-bottom-left-radius:3px}
 .panel>.list-group .list-group-item,.panel>.panel-collapse>.list-group .list-group-item{border-width:1px 0;border-radius:0}
 .panel>.table-responsive:last-child>.table:last-child,.panel>.table-responsive:last-child>.table:last-child>tbody:last-child>tr:last-child,.panel>.table-responsive:last-child>.table:last-child>tfoot:last-child>tr:last-child,.panel>.table:last-child,.panel>.table:last-child>tbody:last-child>tr:last-child,.panel>.table:last-child>tfoot:last-child>tr:last-child{border-bottom-right-radius:3px;border-bottom-left-radius:3px}

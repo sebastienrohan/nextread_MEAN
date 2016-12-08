@@ -1,20 +1,27 @@
 <navigation></navigation>
 
 <div class="container">
-  <page-header content="vm.pageHeader"></page-header>
   
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
 
       <div class="panel panel-default panel-home">
+        <div class="panel-heading">
+            <h4 class="panel-title">Welcome to Nextread !</h4>
+        </div>
         <div class="panel-body">
-          Welcome to Nextread !
+          <p>Nextread is an easy-to-use app that helps you organize your reading list:</p>
+          <ul>
+            <li>Add books by title, with or without specifying an author</li>
+            <li>See average Goodreads rating and show details for each book (cover picture and summary)</li>
+            <li>Drag & drop to reorganize your list order</li>
+          </ul>
+          <p></p>
         </div>
       </div>
-      
-    <button ng-click="vm.login()" class="btn btn-lg btn-primary btn-login">Login</button><button ng-click="vm.register()" class="btn btn-lg btn-primary">Register</button>
+    <button ng-click="vm.register()" class="btn btn-lg btn-primary pull-right">Register</button>  
+    <button ng-click="vm.login()" class="btn btn-lg btn-primary btn-login pull-right">Login</button>
     </div>
   </div>
 
-  <footer-generic></footer-generic>
 </div>
