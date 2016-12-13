@@ -1,0 +1,153 @@
+$background: #f4f4f4;
+$btn-add: #4cafd6;
+$btn-add-border: darken($btn-add, 20%);
+$panel-heading: #494e6b;
+$panel-heading-border: darken($panel-heading, 20%);
+$btn-delete: #985e6d;
+$btn-delete-border: darken($btn-delete, 20%);
+$btn-title: #98878f;
+$btn-title-border: darken($btn-title, 20%);
+$error: #c76714;
+$error-border: darken($error, 20%);
+
+body {
+	margin-top: 80px;
+	background-color: $background;
+}
+
+h1 {
+	margin-bottom: -4px;
+	font-family: 'Roboto Slab', serif;
+}
+
+.navbar-brand {
+	font-family: 'Roboto Slab', serif;
+}
+
+a {
+	color: $btn-add-border;
+	&:hover {
+		color: $btn-add;
+		text-decoration: none;
+	}
+}
+
+.navbar {
+	background-color: $btn-title;
+	border-color: $btn-title-border;
+	a {
+		color: white;
+		&:hover {
+			color: $btn-title-border;
+		}
+	}
+}
+
+.strapline {
+	font-style: italic;
+}
+
+.panel {
+	border-color: $panel-heading-border;
+}
+
+.panel-home {
+	margin-top: 15%;
+	font-size: 17px;
+}
+
+.panel-home h4 {
+	font-size: 22px;
+}
+
+.panel-heading {
+	background-color: $panel-heading;
+}
+
+.btn-home {
+	color: white;
+	background-color: $panel-heading;
+	border-color: $panel-heading-border;
+}
+
+.btn:hover {
+	color: white;
+}
+
+.btn-login {
+	margin-right: 12px;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px white inset;
+}
+
+.btn-add {
+	color: white;
+	background-color: $btn-add;
+	border-color: $btn-add-border;
+	&:focus {
+	background-color: $btn-add;
+	border-color: $btn-add-border;
+	}
+}
+
+.btn-title {
+	margin-left: 8px;
+	background-color: $btn-title;
+	border-color: $btn-title-border;
+}
+
+.btn-delete {
+	background-color: $btn-delete;
+	border-color: $btn-delete-border;
+}
+
+.btn-move:hover {
+	cursor: move;
+}
+
+form {
+	margin: 24px 0;
+}
+
+.author {
+	font-size: 14px;
+}
+
+.rating-stars {
+	margin-left: 12px;
+}
+
+.dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+.panel-hidden {
+	opacity:0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    -webkit-transition: all .3s ease .15s;
+  	-moz-transition: all .3s ease .15s;
+  	-o-transition: all .3s ease .15s;
+  	-ms-transition: all .3s ease .15s;
+  	transition: all .3s ease .15s;
+}
+
+.panel-shown {
+	opacity:1;
+    height: 100%;
+    -webkit-transition: all .3s ease .15s;
+  	-moz-transition: all .3s ease .15s;
+  	-o-transition: all .3s ease .15s;
+  	-ms-transition: all .3s ease .15s;
+  	transition: all .3s ease .15s;
+}
+
+.alert-danger {
+	background-color: $error;
+	border-color: $error-border;
+}

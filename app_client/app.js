@@ -2,10 +2,17 @@
 
 angular.module('nextreadApp', ['ngRoute', 'ngSanitize', 'dndLists', 'ngProgress']);
 
-function config($routeProvider, $locationProvider) {
+function config($routeProvider, $locationProvider, $location, authentication) {
 	$routeProvider
 		.when('/', {
 			templateUrl: 'home/home.view.html',
+			resolve:{
+		        'check': function($location, authentication) {
+		            if(authentication.isLoggedIn() === true) {
+		                $location.path('/booklist');
+		            }
+		        }
+		    },
 			controller: 'homeCtrl',
 			controllerAs: 'vm'
 		})
@@ -21,6 +28,13 @@ function config($routeProvider, $locationProvider) {
 		})
 		.when('/booklist', {
 			templateUrl: '/booklist/booklist.view.html',
+			resolve:{
+		        'check': function($location, authentication) {
+		            if(authentication.isLoggedIn() === false) {
+		                $location.path('/');
+		            }
+		        }
+		    },
 			controller: 'booklistCtrl',
 			controllerAs: 'vm'
 		})

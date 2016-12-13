@@ -4,7 +4,7 @@ angular
 	.module('nextreadApp')
 	.controller('booklistCtrl', booklistCtrl);
 
-function booklistCtrl(nextreadData, ngProgressFactory) {
+function booklistCtrl(nextreadData, ngProgressFactory, $timeout) {
 
 	var vm = this;
 	vm.pageHeader = {
@@ -13,19 +13,26 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 	};
 
 	vm.booklist = null;
+	vm.message = '';
 
 	vm.progressbar = ngProgressFactory.createInstance();
-	vm.progressbar.setColor('#158cba');
+	vm.progressbar.setColor('#4cafd6');
+	vm.progressbar.setHeight('6px');
 
 	vm.getData = function() {
 		nextreadData.getBooks().then(
 			function success(response) {
-				vm.booklist = response.data;
+				temp_booklist = response.data;
+				for (b in temp_booklist) {
+					temp_booklist[b].showDetails = false;
+				}
+				vm.booklist = temp_booklist;
 				vm.progressbar.complete();
+console.log(vm.booklist);
 			},
 			function error(e) {
 				vm.progressbar.reset();
-				vm.message = "Sorry, something went wrong" + e.data.message;
+				vm.message = "Sorry, something went wrong: " + e.data.message;
 			}
 		);
 	};
@@ -53,6 +60,7 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 		} else if (vm.author && !validateAuthor(vm.author)) {
 			vm.message = "Please enter a valid author name";
 		} else {
+			vm.message = '';
 			vm.progressbar.start();
 			vm.postData();
 		}
@@ -61,13 +69,20 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 	vm.postData = function() {
 		nextreadData.postBook(vm.title, vm.author).then(
 			function success(updatedBookshelf) {
+				vm.title = '';
+				vm.author = '';
 				vm.booklist = updatedBookshelf.data;
-				vm.message = "";
+				vm.booklist[vm.booklist.length-1].new = true;
+				$timeout(function() {
+					vm.booklist[vm.booklist.length-1].new = false;
+				}, 1000);
+				vm.message = '';
 				vm.progressbar.complete();
+console.log(vm.booklist);
 			},
 			function error(e) {
 				vm.progressbar.reset();
-				vm.message = "Sorry, something went wrong : " + e.data.message;
+				vm.message = "Sorry, something went wrong: " + e.data.message;
 			}
 		);
 	};
@@ -75,11 +90,18 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 	vm.delete = function(bookToDelete) {
 		nextreadData.deleteBook(bookToDelete).then(
 			function success(updatedBookshelf) {
-				vm.booklist = updatedBookshelf.data;
-				vm.message = "";
+				for (var b in vm.booklist) {
+					if (vm.booklist[b].title === bookToDelete) {
+						vm.booklist[b].deleted = true;
+					}
+				}
+				vm.message = '';
+				$timeout(function() {
+					vm.booklist = updatedBookshelf.data;
+				}, 800);
 			},
 			function error(e) {
-				vm.message = "Sorry, something went wrong : " + e.data.message;
+				vm.message = "Sorry, something went wrong: " + e.data.message;
 			}
 		);
 	};
@@ -90,7 +112,7 @@ function booklistCtrl(nextreadData, ngProgressFactory) {
 				console.log('Bookshelf updated in DB');
 			},
 			function error(e) {
-				vm.message = "Sorry, something went wrong : " + e.data.message;
+				vm.message = "Sorry, something went wrong: " + e.data.message;
 			}
 		);
 	};

@@ -8,9 +8,9 @@
       <div class="col-lg-8 col-lg-offset-2">
         <form role="form" ng-submit="vm.onBookSubmit()">
           <div class="form-inline">
-            <input id="title" type="text" pattern="[a-zA-Z0-9 ]{1,50}" title="Title should only contain letters & numbers, max. 50 characters" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control" required />
-            <button id="addBook" type="submit" class="btn btn-lg btn-primary pull-right">Add book</button>
-            <input id="author" type="text" pattern="[a-zA-Z ]{1,50}" title="Author name should only contain letters, max. 50 characters" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input form-control" />
+            <input id="vm.title" type="text" pattern="[a-zA-Z0-9 ]{1,50}" title="Title should only contain letters & numbers, max. 50 characters" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control" required />
+            <button id="addBook" type="submit" class="btn btn-lg btn-add pull-right">Add book</button>
+            <input id="vm.author" type="text" pattern="[a-zA-Z ]{1,50}" title="Author name should only contain letters, max. 50 characters" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input form-control" />
           </div>
         </form>
       </div>
@@ -19,17 +19,17 @@
 <!-- Filter -->
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2">
-    <div class="error">{{ vm.message }}</div>
+    <div class="alert alert-danger" ng-show="vm.message">{{ vm.message }}</div>
 
     <!-- Book List -->
     <div id="booklist" class="panel-group" ng-model="booklist" dnd-list="vm.booklist">
-      <div ng-repeat="book in vm.booklist" class="panel panel-default">
+      <div ng-repeat="book in vm.booklist" class="panel panel-default animated" ng-class="{'fadeIn': book.new, 'fadeOut': book.deleted}">
         <div class="panel-heading">
           <h4 class="panel-title pull-left">{{ book.title + " - " }}<span class="author">{{ book.author }}</span>
             <small class="rating-stars" rating-stars rating="book.rating"></small>
           </h4>
-          <button class="btn btn-warning btn-title pull-right" ng-click="vm.delete(book.title)">Delete</button>
-          <button class="btn btn-title pull-right" ng-click="showDetails = ! showDetails">Details</button>
+          <button class="btn btn-delete btn-title pull-right animated" ng-click="vm.delete(book.title)">Delete</button>
+          <button class="btn btn-title pull-right" ng-click="book.showDetails = !book.showDetails">Details</button>
           <button class="btn btn-move btn-title pull-right"
           dnd-draggable="book"
           dnd-moved="vm.booklist.splice($index, 1)"
@@ -39,7 +39,7 @@
           ng-class="{'selected': models.selected === book}">Move</button>
           <div class="clearfix"></div>
         </div>
-          <div class="panel-body" ng-class="{'panel-hidden': !showDetails, 'panel-shown': showDetails}">
+          <div class="panel-body" ng-class="{'panel-hidden': !book.showDetails, 'panel-shown': book.showDetails}">
             <div class="row">
               <div class="col-lg-4"><img ng-src="{{ book.cover }}" class="img-responsive"/></div>
               <div class="col-lg-8" ng-bind-html="book.description"></div>

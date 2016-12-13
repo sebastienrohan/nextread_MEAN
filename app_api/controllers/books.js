@@ -115,7 +115,7 @@ module.exports.booksCreateOne = function (req, res) {
             }
           }
           sendJSONresponse(res, 400, {
-            "message": "Book not found for this author"
+            "message": "book not found for this author"
           });
           return;
         }
