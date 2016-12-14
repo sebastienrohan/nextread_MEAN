@@ -47,7 +47,7 @@ module.exports.booksList = function (req, res) {
   getAccount(req, res, function (req, res, user) {
     if (!user.bookshelf) {
       sendJSONresponse(res, 404, {
-        "message": "Books not found"
+        "message": "books not found"
       });
       return;
     }
@@ -57,7 +57,7 @@ module.exports.booksList = function (req, res) {
 
 module.exports.booksCreateOne = function (req, res) {
   getAccount(req, res, function (req, res, user) {
-    requ.get('https://www.goodreads.com/search/index.xml?key=S2DDCAJNNZgPUhQwkjCA&q=' + req.body.title,
+    requ.get('https://www.goodreads.com/search/index.xml?key=' + process.env.API_KEY + '&q=' + req.body.title,
     function (error, body) {
       if (error) { sendJSONresponse(res, 400, error); return; }
       // parse obtained XML
@@ -65,7 +65,7 @@ module.exports.booksCreateOne = function (req, res) {
         if (error) { sendJSONresponse(res, 400, error); return; }
         if (result.GoodreadsResponse.search[0]['total-results'][0] == 0) {
           sendJSONresponse(res, 400, {
-            "message": "Book not found"
+            "message": "book not found"
           });
           return;
         }
@@ -84,7 +84,7 @@ module.exports.booksCreateOne = function (req, res) {
               title = title.split('(')[0];
               console.log(title);
               // get description for the right book
-              requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=S2DDCAJNNZgPUhQwkjCA&title=' + title, 
+              requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=' + process.env.API_KEY + '&title=' + title, 
               function (error, body) {
                 if (error) { sendJSONresponse(res, 400, error); return; }
                 // parse obtained XML

@@ -1,13 +1,36 @@
 body {
   margin-top: 80px;
-  background-color: #f4f4f4; }
+  background-color: #f4f4f4;
+  font-size: 14px;
+  font-family: 'Lato', sans-serif; }
 
 h1 {
   margin-bottom: -4px;
+  font-size: 32px;
   font-family: 'Roboto Slab', serif; }
 
+p.lead {
+  font-size: 14px; }
+
+h4 {
+  padding-left: 16px;
+  font-size: 14px; }
+  h4 .author {
+    font-size: 12px; }
+
+h3.panel-title {
+  color: white;
+  font-family: 'Roboto Slab', serif;
+  margin-bottom: 12px; }
+
+.rating-stars {
+  padding-left: 16px;
+  margin: 8px 0 16px;
+  font-size: 12px; }
+
 .navbar-brand {
-  font-family: 'Roboto Slab', serif; }
+  font-family: 'Roboto Slab', serif;
+  font-size: 14px; }
 
 a {
   color: #237899; }
@@ -26,18 +49,32 @@ a {
 .strapline {
   font-style: italic; }
 
+#booklist {
+  margin-top: 24px; }
+
 .panel {
   border-color: #20222e; }
 
 .panel-home {
   margin-top: 15%;
-  font-size: 17px; }
-
-.panel-home h4 {
-  font-size: 22px; }
+  font-size: 14px; }
+  .panel-home h4 {
+    font-size: 20px; }
 
 .panel-heading {
   background-color: #494e6b; }
+
+.panel-title {
+  font-family: 'Roboto Slab', serif; }
+
+.book-title {
+  font-weight: bold; }
+
+.panel-details {
+  padding: 0 16px; }
+
+.book-cover {
+  margin-bottom: 16px; }
 
 .btn-home {
   color: white;
@@ -54,6 +91,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   box-shadow: 0 0 0 1000px white inset; }
 
 .btn-add {
+  width: 100%;
   color: white;
   background-color: #4cafd6;
   border-color: #237899; }
@@ -61,10 +99,19 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
     background-color: #4cafd6;
     border-color: #237899; }
 
-.btn-title {
-  margin-left: 8px;
+.btn-panel {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-size: 8px; }
+
+.btn-details {
   background-color: #98878f;
   border-color: #64555c; }
+
+.btn-move {
+  background-color: #926c7e;
+  border-color: #57414b; }
 
 .btn-delete {
   background-color: #985e6d;
@@ -75,12 +122,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 
 form {
   margin: 24px 0; }
-
-.author {
-  font-size: 14px; }
-
-.rating-stars {
-  margin-left: 12px; }
 
 .dndPlaceholder {
   display: block;
@@ -110,5 +151,12 @@ form {
 .alert-danger {
   background-color: #c76714;
   border-color: #6a370b; }
+
+@media screen and (min-width: 768px) {
+  h4 {
+    font-size: 16px; }
+
+  .btn-panel {
+    font-size: 10px; } }
 
 /*# sourceMappingURL=style.css.map */

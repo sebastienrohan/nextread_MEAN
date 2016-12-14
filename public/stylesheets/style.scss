@@ -5,23 +5,53 @@ $panel-heading: #494e6b;
 $panel-heading-border: darken($panel-heading, 20%);
 $btn-delete: #985e6d;
 $btn-delete-border: darken($btn-delete, 20%);
-$btn-title: #98878f;
-$btn-title-border: darken($btn-title, 20%);
+$btn-panel: #98878f;
+$btn-panel-border: darken($btn-panel, 20%);
+$btn-move: #926c7e;
+$btn-move-border: darken($btn-move, 20%);
 $error: #c76714;
 $error-border: darken($error, 20%);
 
 body {
 	margin-top: 80px;
 	background-color: $background;
+	font-size: 14px;
+	font-family: 'Lato', sans-serif;
 }
 
 h1 {
 	margin-bottom: -4px;
+	font-size: 32px;
 	font-family: 'Roboto Slab', serif;
+}
+
+p.lead {
+	font-size: 14px;
+}
+
+h4 {
+	padding-left: 16px;
+	font-size: 14px;
+	.author {
+		font-size: 12px;
+	}
+}
+
+h3.panel-title {
+	color: white;
+	font-family: 'Roboto Slab', serif;
+	margin-bottom: 12px;
+}
+
+.rating-stars {
+	padding-left: 16px;
+	margin: 8px 0 16px;
+	font-size: 12px;
 }
 
 .navbar-brand {
 	font-family: 'Roboto Slab', serif;
+	font-size: 14px;
 }
 
 a {
@@ -33,12 +63,12 @@ a {
 }
 
 .navbar {
-	background-color: $btn-title;
-	border-color: $btn-title-border;
+	background-color: $btn-panel;
+	border-color: $btn-panel-border;
 	a {
 		color: white;
 		&:hover {
-			color: $btn-title-border;
+			color: $btn-panel-border;
 		}
 	}
 }
@@ -47,21 +77,40 @@ a {
 	font-style: italic;
 }
 
+#booklist {
+	margin-top: 24px;
+}
+
 .panel {
 	border-color: $panel-heading-border;
 }
 
 .panel-home {
 	margin-top: 15%;
-	font-size: 17px;
-}
-
-.panel-home h4 {
-	font-size: 22px;
+	font-size: 14px;
+	h4 {
+		font-size: 20px;
+	}
 }
 
 .panel-heading {
 	background-color: $panel-heading;
+}
+
+.panel-title {
+	font-family: 'Roboto Slab', serif;
+}
+
+.book-title {
+	font-weight: bold;
+}
+
+.panel-details {
+	padding: 0 16px;
+}
+
+.book-cover {
+	margin-bottom: 16px;
 }
 
 .btn-home {
@@ -83,6 +132,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 }
 
 .btn-add {
+	width: 100%;
 	color: white;
 	background-color: $btn-add;
 	border-color: $btn-add-border;
@@ -92,10 +142,21 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 	}
 }
 
-.btn-title {
-	margin-left: 8px;
-	background-color: $btn-title;
-	border-color: $btn-title-border;
+.btn-panel {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-size: 8px;
+}
+
+.btn-details {
+	background-color: $btn-panel;
+	border-color: $btn-panel-border;
+}
+
+.btn-move {
+	background-color: $btn-move;
+	border-color: $btn-move-border;
 }
 
 .btn-delete {
@@ -109,14 +170,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 
 form {
 	margin: 24px 0;
-}
-
-.author {
-	font-size: 14px;
-}
-
-.rating-stars {
-	margin-left: 12px;
 }
 
 .dndPlaceholder {
@@ -150,4 +203,13 @@ form {
 .alert-danger {
 	background-color: $error;
 	border-color: $error-border;
+}
+
+@media screen and (min-width: 768px) {
+	h4 {
+		font-size: 16px;
+	}
+	.btn-panel {
+		font-size: 10px;
+	}
 }

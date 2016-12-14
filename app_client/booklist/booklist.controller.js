@@ -28,7 +28,6 @@ function booklistCtrl(nextreadData, ngProgressFactory, $timeout) {
 				}
 				vm.booklist = temp_booklist;
 				vm.progressbar.complete();
-console.log(vm.booklist);
 			},
 			function error(e) {
 				vm.progressbar.reset();
