@@ -2,6 +2,7 @@ npm-debug.log
 
 # Dependency directory
 node_modules
+bower_components
 
 # Environment variables
 .env
