@@ -106,6 +106,9 @@ console.log(vm.booklist);
 	};
 
 	vm.dragend = function(newBookshelf) {
+		for (var b in newBookshelf) {
+			newBookshelf[b].showDetails = false;
+		}
 		nextreadData.updateBookshelf(newBookshelf).then(
 			function success() {
 				console.log('Bookshelf updated in DB');

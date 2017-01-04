@@ -5,7 +5,7 @@
   
 <!-- New book input -->
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1">
+  <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
     <form role="form" ng-submit="vm.onBookSubmit()">
       <input id="vm.title" type="text" pattern="[a-zA-Z0-9 ]{1,50}" title="Title should only contain letters & numbers, max. 50 characters" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control" required />
       <input id="vm.author" type="text" pattern="[a-zA-Z ]{1,50}" title="Author name should only contain letters, max. 50 characters" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input form-control" />
@@ -15,7 +15,7 @@
 </div>
 
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1">
+  <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
     <div class="alert alert-danger" ng-show="vm.message">{{ vm.message }}</div>
 
     <!-- Book List -->
@@ -23,11 +23,12 @@
       <div ng-repeat="book in vm.booklist" class="panel panel-default animated" ng-class="{'fadeIn': book.new, 'fadeOut': book.deleted}">
         <div class="panel-heading">
           <div class="row">
-            <div class="col-xs-12 col-sm-8"></div>
-            <h4 class="panel-title book-title">{{ book.title }}<span class="author">{{ " - " + book.author }}</span></h4>
-          </div>
-          <div class="row">
-            <div class="rating-stars" rating-stars rating="book.rating"></div>
+            <div class="col-xs-12 col-sm-8">
+              <h4 class="panel-title book-title">{{ book.title }}<span class="author">{{ " - " + book.author }}</span></h4>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <div class="rating-stars pull-right" rating-stars rating="book.rating"></div>
+            </div>
           </div>
           <div class="row">
             <div class="col-xs-6">
@@ -50,8 +51,8 @@
         </div>
           <div class="panel-body" ng-class="{'panel-hidden': !book.showDetails, 'panel-shown': book.showDetails}">
             <div class="row panel-details">
-              <div class="col-lg-4 book-cover"><img ng-src="{{ book.cover }}" class="img-responsive"/></div>
-              <div class="col-lg-8" ng-bind-html="book.description"></div>
+              <div class="col-lg-2 book-cover"><img ng-src="{{ book.cover }}" class="img-responsive"/></div>
+              <div class="col-lg-10" ng-bind-html="book.description"></div>
             </div>
           </div>
       </div>

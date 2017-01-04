@@ -1,7 +1,7 @@
-$background: #f4f4f4;
-$btn-add: #4cafd6;
+$background: #fff1f0; // #f4f4f4;
+$btn-add: #8cc1d6; // #4cafd6;
 $btn-add-border: darken($btn-add, 20%);
-$panel-heading: #494e6b;
+$panel-heading: rgba(210, 148, 109, 0.46); // #494e6b;
 $panel-heading-border: darken($panel-heading, 20%);
 $btn-delete: #985e6d;
 $btn-delete-border: darken($btn-delete, 20%);
@@ -38,15 +38,16 @@ h4 {
 }
 
 h3.panel-title {
-	color: white;
+	color: #444;
 	font-family: 'Roboto Slab', serif;
 	margin-bottom: 12px;
 }
 
 .rating-stars {
-	padding-left: 16px;
+	padding: 0 16px;
 	margin: 8px 0 16px;
 	font-size: 12px;
+	color: #444;
 }
 
 .navbar-brand {
@@ -102,7 +103,7 @@ a {
 }
 
 .book-title {
-	font-weight: bold;
+	color: #444;
 }
 
 .panel-details {
@@ -115,8 +116,8 @@ a {
 
 .btn-home {
 	color: white;
-	background-color: $panel-heading;
-	border-color: $panel-heading-border;
+	background-color: $btn-add;
+	border-color: $btn-add-border;
 }
 
 .btn:hover {
@@ -162,6 +163,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 .btn-delete {
 	background-color: $btn-delete;
 	border-color: $btn-delete-border;
+	margin-right: -1px;
 }
 
 .btn-move:hover {
@@ -203,6 +205,10 @@ form {
 .alert-danger {
 	background-color: $error;
 	border-color: $error-border;
+}
+
+footer {
+	font-size: 12px;
 }
 
 @media screen and (min-width: 768px) {

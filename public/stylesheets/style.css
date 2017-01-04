@@ -1,6 +1,6 @@
 body {
   margin-top: 80px;
-  background-color: #f4f4f4;
+  background-color: #fff1f0;
   font-size: 14px;
   font-family: 'Lato', sans-serif; }
 
@@ -19,23 +19,24 @@ h4 {
     font-size: 12px; }
 
 h3.panel-title {
-  color: white;
+  color: #444;
   font-family: 'Roboto Slab', serif;
   margin-bottom: 12px; }
 
 .rating-stars {
-  padding-left: 16px;
+  padding: 0 16px;
   margin: 8px 0 16px;
-  font-size: 12px; }
+  font-size: 12px;
+  color: #444; }
 
 .navbar-brand {
   font-family: 'Roboto Slab', serif;
   font-size: 14px; }
 
 a {
-  color: #237899; }
+  color: #4298ba; }
   a:hover {
-    color: #4cafd6;
+    color: #8cc1d6;
     text-decoration: none; }
 
 .navbar {
@@ -53,7 +54,7 @@ a {
   margin-top: 24px; }
 
 .panel {
-  border-color: #20222e; }
+  border-color: rgba(166, 95, 51, 0.46); }
 
 .panel-home {
   margin-top: 15%;
@@ -62,13 +63,13 @@ a {
     font-size: 20px; }
 
 .panel-heading {
-  background-color: #494e6b; }
+  background-color: rgba(210, 148, 109, 0.46); }
 
 .panel-title {
   font-family: 'Roboto Slab', serif; }
 
 .book-title {
-  font-weight: bold; }
+  color: #444; }
 
 .panel-details {
   padding: 0 16px; }
@@ -78,8 +79,8 @@ a {
 
 .btn-home {
   color: white;
-  background-color: #494e6b;
-  border-color: #20222e; }
+  background-color: #8cc1d6;
+  border-color: #4298ba; }
 
 .btn:hover {
   color: white; }
@@ -93,11 +94,11 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 .btn-add {
   width: 100%;
   color: white;
-  background-color: #4cafd6;
-  border-color: #237899; }
+  background-color: #8cc1d6;
+  border-color: #4298ba; }
   .btn-add:focus {
-    background-color: #4cafd6;
-    border-color: #237899; }
+    background-color: #8cc1d6;
+    border-color: #4298ba; }
 
 .btn-panel {
   height: 100%;
@@ -115,7 +116,8 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 
 .btn-delete {
   background-color: #985e6d;
-  border-color: #593740; }
+  border-color: #593740;
+  margin-right: -1px; }
 
 .btn-move:hover {
   cursor: move; }
@@ -151,6 +153,9 @@ form {
 .alert-danger {
   background-color: #c76714;
   border-color: #6a370b; }
+
+footer {
+  font-size: 12px; }
 
 @media screen and (min-width: 768px) {
   h4 {

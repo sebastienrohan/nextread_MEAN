@@ -924,7 +924,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-collapse{overflow-x:visible;padding-right:15px;padding-left:15px;border-top:1px solid transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);-webkit-overflow-scrolling:touch}
 .navbar-collapse.in{overflow-y:auto}
 @media (min-width:768px){.navbar{border-radius:0}
-.navbar-header{float:left}
+.navbar-header{float:right}
 .navbar-collapse{width:auto;border-top:0;box-shadow:none}
 .navbar-collapse.collapse{display:block!important;height:auto!important;padding-bottom:0;overflow:visible!important}
 .navbar-collapse.in{overflow-y:visible}
@@ -1208,7 +1208,7 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
 .panel>.table-responsive{border:0;margin-bottom:0}
 .panel-danger,.panel-danger>.panel-heading,.panel-default,.panel-default>.panel-heading,.panel-info,.panel-info>.panel-heading,.panel-primary,.panel-primary>.panel-heading,.panel-success,.panel-warning,.panel-warning>.panel-heading{border-color:transparent}
 .panel-group{margin-bottom:20px}
-.panel-group .panel{margin-bottom:0;border-radius:0}
+.panel-group .panel{margin-bottom:12px;border-radius:0}
 .panel-group .panel+.panel{margin-top:5px}
 .panel-group .panel-heading+.panel-collapse>.list-group,.panel-group .panel-heading+.panel-collapse>.panel-body{border-top:1px solid transparent}
 .panel-group .panel-footer{border-top:0}
@@ -1227,6 +1227,8 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
 .panel-warning>.panel-heading .badge{color:#ff851b;background-color:#fff}
 .panel-danger>.panel-heading{color:#fff;background-color:#ff4136}
 .panel-danger>.panel-heading .badge{color:#ff4136;background-color:#fff}
+.panel-heading: {border: none;}
+.panel: {border: 1px solid;}
 .embed-responsive{position:relative;display:block;height:0;padding:0}
 .embed-responsive .embed-responsive-item,.embed-responsive embed,.embed-responsive iframe,.embed-responsive object,.embed-responsive video{position:absolute;top:0;left:0;bottom:0;height:100%;width:100%;border:0}
 .embed-responsive-16by9{padding-bottom:56.25%}
