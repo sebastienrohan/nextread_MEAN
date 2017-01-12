@@ -16,8 +16,9 @@ var toProperCase = function (name) {
       var letter = words[i].charAt(0).toUpperCase();
       results.push(letter + words[i].slice(1));
   }
-  return name = results.join(' ');
-}
+  name = results.join(' ');
+  return name;
+};
 
 //  validate that user exists & get email
 var getAccount = function (req, res, callback) {
@@ -82,7 +83,6 @@ module.exports.booksCreateOne = function (req, res) {
               var title = work_list[auth].best_book[0].title[0];
               // look for a parenthesis in title and cut it out
               title = title.split('(')[0];
-              console.log(title);
               // get description for the right book
               requ.get('https://www.goodreads.com/book/title.xml?author=' + author + '&key=' + process.env.API_KEY + '&title=' + title, 
               function (error, body) {
@@ -138,7 +138,7 @@ module.exports.booksCreateOne = function (req, res) {
             else {
               var description = 'No description available.';
               if(result.GoodreadsResponse && result.GoodreadsResponse.book[0].description[0].length > 3) {
-                var description = result.GoodreadsResponse.book[0].description[0];
+                description = result.GoodreadsResponse.book[0].description[0];
               }
               // add new book to bookshelf
               user.bookshelf.push({

@@ -23,7 +23,7 @@ function booklistCtrl(nextreadData, ngProgressFactory, $timeout) {
 		nextreadData.getBooks().then(
 			function success(response) {
 				temp_booklist = response.data;
-				for (b in temp_booklist) {
+				for (var b in temp_booklist) {
 					temp_booklist[b].showDetails = false;
 				}
 				vm.booklist = temp_booklist;
@@ -42,14 +42,14 @@ function booklistCtrl(nextreadData, ngProgressFactory, $timeout) {
 	
 
 	function validateTitle(title) {
-	    var re = /^[a-zA-Z0-9 ]+$/i;
+	    var re = /^[a-zéèàùîôûâêA-Z0-9' ]+$/i;
 	    return (re.test(title) && title.length < 51);
-	};
+	}
 
 	function validateAuthor(author) {
-	    var re = /^[a-zA-Z ]+$/i;
+	    var re = /^[a-zéèàùîôûâêA-Z' ]+$/i;
 	    return (re.test(author) && author.length < 51);
-	};
+	}
 
 	vm.onBookSubmit = function() {
 		if (!vm.title) {

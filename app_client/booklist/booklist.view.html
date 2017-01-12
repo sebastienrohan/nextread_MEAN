@@ -7,8 +7,8 @@
 <div class="row">
   <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
     <form role="form" ng-submit="vm.onBookSubmit()">
-      <input id="vm.title" type="text" pattern="[a-zA-Z0-9 ]{1,50}" title="Title should only contain letters & numbers, max. 50 characters" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control" required />
-      <input id="vm.author" type="text" pattern="[a-zA-Z ]{1,50}" title="Author name should only contain letters, max. 50 characters" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input form-control" />
+      <input id="vm.title" type="text" pattern="[a-zéèàùîôûâêA-Z0-9' ]{1,50}" title="Title should only contain letters & numbers, max. 50 characters" placeholder="Book title" ng-model="vm.title" name="title" class="input-lg form-control" required />
+      <input id="vm.author" type="text" pattern="[a-zéèàùîôûâêA-Z' ]{1,50}" title="Author name should only contain letters, max. 50 characters" placeholder="Author (optional)" ng-model="vm.author" name="author" class="input form-control" />
       <button id="addBook" type="submit" class="btn btn-lg btn-add">Add book</button>
     </form>
   </div>
