@@ -1,5 +1,5 @@
 body {
-  margin-top: 80px;
+  margin-top: 60px;
   background-color: #fff1f0;
   font-size: 14px;
   font-family: 'Lato', sans-serif; }
@@ -17,6 +17,9 @@ h4 {
   font-size: 14px; }
   h4 .author {
     font-size: 12px; }
+
+.img-home {
+  display: none; }
 
 h3.panel-title {
   color: #444;
@@ -162,6 +165,10 @@ footer {
     font-size: 16px; }
 
   .btn-panel {
-    font-size: 10px; } }
+    font-size: 10px; }
+
+  .img-home {
+    margin-top: 24px;
+    display: block; } }
 
 /*# sourceMappingURL=style.css.map */

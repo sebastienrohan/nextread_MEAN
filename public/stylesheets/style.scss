@@ -13,7 +13,7 @@ $error: #c76714;
 $error-border: darken($error, 20%);
 
 body {
-	margin-top: 80px;
+	margin-top: 60px;
 	background-color: $background;
 	font-size: 14px;
 	font-family: 'Lato', sans-serif;
@@ -35,6 +35,10 @@ h4 {
 	.author {
 		font-size: 12px;
 	}
+}
+
+.img-home {
+	display: none;
 }
 
 h3.panel-title {
@@ -217,5 +221,9 @@ footer {
 	}
 	.btn-panel {
 		font-size: 10px;
+	}
+	.img-home {
+		margin-top: 24px;
+		display: block;
 	}
 }

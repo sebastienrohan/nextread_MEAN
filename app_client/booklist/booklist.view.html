@@ -20,6 +20,7 @@
 
     <!-- Book List -->
     <div id="booklist" class="panel-group" ng-model="booklist" ng-sortable="vm.booklist" ng-sortable-item-selector=".book" ng-sortable-on-change="vm.dragend(vm.booklist)">
+      <!-- Each book -->
       <div ng-repeat="book in vm.booklist" class="panel panel-default animated book" ng-class="{'fadeIn': book.new, 'fadeOut': book.deleted}">
         <div class="panel-heading">
           <div class="row">

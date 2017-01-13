@@ -27,7 +27,8 @@
                 // Create rubaxa sortable list
                 sort = new Sortable(element[0], {
                     draggable: scope.listItemSelector,
-                    onUpdate: onUpdate
+                    onUpdate: onUpdate,
+                    handle: ".btn-move"
                 });
 
                 // Events for when a drag begins
