@@ -19,8 +19,8 @@
     <div class="alert alert-danger" ng-show="vm.message">{{ vm.message }}</div>
 
     <!-- Book List -->
-    <div id="booklist" class="panel-group" ng-model="booklist" dnd-list="vm.booklist">
-      <div ng-repeat="book in vm.booklist" class="panel panel-default animated" ng-class="{'fadeIn': book.new, 'fadeOut': book.deleted}">
+    <div id="booklist" class="panel-group" ng-model="booklist" ng-sortable="vm.booklist" ng-sortable-item-selector=".book" ng-sortable-on-change="vm.dragend(vm.booklist)">
+      <div ng-repeat="book in vm.booklist" class="panel panel-default animated book" ng-class="{'fadeIn': book.new, 'fadeOut': book.deleted}">
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-12 col-sm-8">
@@ -35,13 +35,7 @@
               <button class="btn btn-panel btn-details" ng-click="book.showDetails = !book.showDetails">Details</button>
             </div>
             <div class="col-xs-4">
-              <button class="btn btn-panel btn-move pull-right"
-                dnd-draggable="book"
-                dnd-moved="vm.booklist.splice($index, 1)"
-                dnd-effect-allowed="move"
-                dnd-dragend="vm.dragend(vm.booklist)"
-                dnd-selected="models.selected = book"
-                ng-class="{'selected': models.selected === book}">Move</button>
+              <button class="btn btn-panel btn-move pull-right" ng-class="{'selected': models.selected === book}">Move</button>
             </div>
             <div class="col-xs-2">
               <button class="btn btn-panel btn-delete pull-right" ng-click="vm.delete(book.title)">X</button>

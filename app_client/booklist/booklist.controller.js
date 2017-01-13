@@ -77,7 +77,6 @@ function booklistCtrl(nextreadData, ngProgressFactory, $timeout) {
 				}, 1000);
 				vm.message = '';
 				vm.progressbar.complete();
-console.log(vm.booklist);
 			},
 			function error(e) {
 				vm.progressbar.reset();
