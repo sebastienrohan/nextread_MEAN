@@ -35,8 +35,8 @@
             <div class="col-xs-6">
               <button class="btn btn-panel btn-details" ng-click="book.showDetails = !book.showDetails">Details</button>
             </div>
-            <div class="col-xs-4">
-              <button class="btn btn-panel btn-move pull-right" ng-class="{'selected': models.selected === book}">Move</button>
+            <div class="col-xs-4 btn btn-move" ng-class="{'selected': models.selected === book}">
+              Move
             </div>
             <div class="col-xs-2">
               <button class="btn btn-panel btn-delete pull-right" ng-click="vm.delete(book.title)">X</button>

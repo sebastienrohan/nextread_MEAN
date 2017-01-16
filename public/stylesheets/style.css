@@ -114,6 +114,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   border-color: #64555c; }
 
 .btn-move {
+  font-size: 10px;
   background-color: #926c7e;
   border-color: #57414b; }
 
