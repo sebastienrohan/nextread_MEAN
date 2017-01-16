@@ -114,7 +114,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   border-color: #64555c; }
 
 .btn-move {
-  font-size: 10px;
+  font-size: 8px;
   background-color: #926c7e;
   border-color: #57414b; }
 
@@ -165,7 +165,7 @@ footer {
   h4 {
     font-size: 16px; }
 
-  .btn-panel {
+  .btn-panel, .btn-move {
     font-size: 10px; }
 
   .img-home {
