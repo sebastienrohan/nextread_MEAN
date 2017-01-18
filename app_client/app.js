@@ -1,6 +1,6 @@
 (function(){
 
-angular.module('nextreadApp', ['ngRoute', 'ngSanitize', 'dndLists', 'ngProgress', 'de.ng-sortable']);
+angular.module('nextreadApp', ['ngRoute', 'ngSanitize', 'ngProgress', 'de.ng-sortable']);
 
 function config($routeProvider, $locationProvider, $location, authentication) {
 	$routeProvider

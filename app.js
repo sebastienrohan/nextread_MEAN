@@ -12,7 +12,6 @@ var request = require('request');
 require('./app_api/models/db');
 require('./app_api/config/passport');
 
-// var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 
 var app = express();
@@ -21,8 +20,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 // initialize Passport
 app.use(passport.initialize());
 
-// app.use('/', routes);
 app.use('/api', routesApi);
 
 // catchall
